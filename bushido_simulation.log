@@ -1,318 +1,193 @@
-2025-11-18 13:32:02,498 - __main__ - INFO - Vertex AI initialized: project=bushido-478510, location=europe-west2
-2025-11-18 13:32:03,769 - __main__ - INFO - Starting 1 simulations
-2025-11-18 13:32:03,769 - __main__ - INFO - Simulation 0: Player_0_A vs Player_0_B
-2025-11-18 13:32:03,770 - __main__ - INFO - [INIT] Creating agent for Player_0_A (Challenger)
-2025-11-18 13:32:03,770 - __main__ - INFO - [INIT] Session ID: game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Challenger
-2025-11-18 13:32:03,770 - __main__ - INFO - [INIT] User ID: player_Player_0_A
-2025-11-18 13:32:03,770 - __main__ - INFO - [INIT] Agent created with model: gemini-2.5-flash
-2025-11-18 13:32:03,771 - __main__ - INFO - [INIT] InMemoryRunner created
-2025-11-18 13:32:03,771 - __main__ - INFO - [INIT] Creating agent for Player_0_B (Defender)
-2025-11-18 13:32:03,771 - __main__ - INFO - [INIT] Session ID: game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Defender
-2025-11-18 13:32:03,771 - __main__ - INFO - [INIT] User ID: player_Player_0_B
-2025-11-18 13:32:03,772 - __main__ - INFO - [INIT] Agent created with model: gemini-2.5-flash
-2025-11-18 13:32:03,772 - __main__ - INFO - [INIT] InMemoryRunner created
-2025-11-18 13:32:03,772 - __main__ - INFO - [INIT] Attempting to initialize session for game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Challenger
-2025-11-18 13:32:03,773 - __main__ - INFO - [INIT] Session created successfully: game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Challenger
-2025-11-18 13:32:03,773 - __main__ - INFO - [INIT] Attempting to initialize session for game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Defender
-2025-11-18 13:32:03,773 - __main__ - INFO - [INIT] Session created successfully: game_a686bc9b-37c8-4e95-8b48-b54680e12cd0_Defender
-2025-11-18 13:32:03,773 - GameMaster_sim_0 - INFO - Game a686bc9b-37c8-4e95-8b48-b54680e12cd0 initialized
-2025-11-18 13:32:03,773 - GameMaster_sim_0 - INFO - Starting turn 1
-2025-11-18 13:32:03,773 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 1)
-2025-11-18 13:32:04,009 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 1)
-2025-11-18 13:32:09,264 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:09,267 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:09,562 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:09,567 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:12,646 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:12,648 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:14,983 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:14,987 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:24,008 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:24,010 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:28,452 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:28,456 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:38,664 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:38,667 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:38,668 - __main__ - INFO - [LLM] Player_0_A completed reasoning (212 chars, 9 events)
-2025-11-18 13:32:38,668 - __main__ - INFO - [LLM] Full response:
+2025-11-18 15:00:45,992 - __main__ - INFO - Vertex AI initialized: project=bushido-478510, location=europe-west2
+2025-11-18 15:00:49,824 - __main__ - INFO - Starting 1 simulations
+2025-11-18 15:00:49,824 - __main__ - INFO - Simulation 0: Player_0_A vs Player_0_B
+2025-11-18 15:00:49,824 - __main__ - INFO - [INIT] Creating agent for Player_0_A (Player 0)
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] Session ID: game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player0
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] User ID: player_Player_0_A
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] Agent created with model: gemini-2.5-flash
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] InMemoryRunner created
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] Creating agent for Player_0_B (Player 1)
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] Session ID: game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player1
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] User ID: player_Player_0_B
+2025-11-18 15:00:49,825 - __main__ - INFO - [INIT] Agent created with model: gemini-2.5-flash
+2025-11-18 15:00:49,826 - __main__ - INFO - [INIT] InMemoryRunner created
+2025-11-18 15:00:49,826 - __main__ - INFO - [INIT] Attempting to initialize session for game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player0
+2025-11-18 15:00:49,826 - __main__ - INFO - [INIT] Session created successfully: game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player0
+2025-11-18 15:00:49,826 - __main__ - INFO - [INIT] Attempting to initialize session for game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player1
+2025-11-18 15:00:49,826 - __main__ - INFO - [INIT] Session created successfully: game_f536e47b-c8e6-4303-83cc-d77b7a0dddc0_player1
+2025-11-18 15:00:49,826 - GameMaster_sim_0 - INFO - Game f536e47b-c8e6-4303-83cc-d77b7a0dddc0 initialized
+2025-11-18 15:00:49,826 - GameMaster_sim_0 - INFO - Starting turn 1
+2025-11-18 15:00:49,826 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 1)
+2025-11-18 15:00:50,029 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 1)
+2025-11-18 15:00:51,793 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:00:51,797 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:00:52,243 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:00:52,249 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:00:54,042 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:00:54,044 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:00:54,188 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:00:54,195 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:00:56,679 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:00:56,682 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature', 'function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:02,133 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:02,138 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:02,139 - __main__ - INFO - [LLM] Player_0_B completed reasoning (235 chars, 5 events)
+2025-11-18 15:01:02,139 - __main__ - INFO - [LLM] Full response:
+DECISION: [Advance, Defend]
+TECHNIQUE: None
+REASONING: The opponent has momentum, so defending is prudent. Advancing allows me to gain momentum and close the distance, setting up for a more aggressive and optimal play on the next turn.
+2025-11-18 15:01:02,140 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>)
+2025-11-18 15:01:02,140 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>)
+2025-11-18 15:01:02,141 - GameMaster_sim_0 - INFO -   Reasoning: The opponent has momentum, so defending is prudent. Advancing allows me to gain momentum and close the distance, setting up for a more aggressive and optimal play on the next turn.
+2025-11-18 15:01:02,141 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:03,670 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:03,675 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:03,677 - __main__ - INFO - [LLM] Player_0_A completed reasoning (208 chars, 7 events)
+2025-11-18 15:01:03,678 - __main__ - INFO - [LLM] Full response:
 DECISION: [Advance, Attack]
 TECHNIQUE: Kuzushi
-REASONING: I'm going in hard right from the start. Kuzushi amplifies my attack while advancing and disrupts their balance, perfectly fitting my aggressive playstyle.
-2025-11-18 13:32:38,669 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), technique=Kuzushi
-2025-11-18 13:32:38,669 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
-2025-11-18 13:32:38,669 - GameMaster_sim_0 - INFO -   Reasoning: I'm going in hard right from the start. Kuzushi amplifies my attack while advancing and disrupts their balance, perfectly fitting my aggressive playstyle.
-2025-11-18 13:32:38,669 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:32:42,651 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:42,654 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:42,655 - __main__ - INFO - [LLM] Player_0_B completed reasoning (457 chars, 5 events)
-2025-11-18 13:32:42,655 - __main__ - INFO - [LLM] Full response:
-I'm at full health, but my opponent already has momentum. This makes me a bit wary. My core principle is survival, so I need to be cautious. While I could try to build balance with "Stay", I feel a potential attack coming. My best bet is to directly protect myself.
-
-DECISION: [Defend]
+REASONING: I will open with an aggressive advance, leveraging Kuzushi to disrupt the opponent's balance and establish an early tempo, keeping them on their toes.
+2025-11-18 15:01:03,678 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-18 15:01:03,678 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-18 15:01:03,678 - GameMaster_sim_0 - INFO -   Reasoning: I will open with an aggressive advance, leveraging Kuzushi to disrupt the opponent's balance and establish an early tempo, keeping them on their toes.
+2025-11-18 15:01:03,678 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:03,679 - GameMaster_sim_0 - INFO - Turn 1 Results:
+2025-11-18 15:01:03,680 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 1, 'challenger_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), 'defender_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>), 'challenger_technique': 'Kuzushi', 'defender_technique': None, 'position_before': 'Apart', 'damage_dealt': {'challenger': 0, 'defender': 1}, 'position_after': 'Sword Range', 'new_position': <Position.SWORD: 'Sword Range'>}
+2025-11-18 15:01:03,680 - GameMaster_sim_0 - INFO - Starting turn 2
+2025-11-18 15:01:03,682 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 2)
+2025-11-18 15:01:03,980 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 2)
+2025-11-18 15:01:05,922 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:05,927 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:06,154 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:06,157 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:09,346 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:09,350 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:09,589 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:09,592 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:16,879 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:16,882 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:16,884 - __main__ - INFO - [LLM] Player_0_B completed reasoning (274 chars, 5 events)
+2025-11-18 15:01:16,884 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
 TECHNIQUE: None
-REASONING: My opponent has momentum, so I anticipate an early attack. Defending is the safest option to protect myself and aligns with my defensive nature.
-2025-11-18 13:32:42,655 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Reasoning: My opponent has momentum, so I anticipate an early attack. Defending is the safest option to protect myself and aligns with my defensive nature.
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO - Turn 1 Results:
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Position: Apart -> Sword Range
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Challenger actions: ['Advance', 'Attack']
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 1
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 2
-2025-11-18 13:32:42,655 - GameMaster_sim_0 - INFO - Starting turn 2
-2025-11-18 13:32:42,656 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 2)
-2025-11-18 13:32:42,840 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 2)
-2025-11-18 13:32:47,150 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:47,152 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:47,664 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:47,668 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:51,353 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:51,356 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:32:53,546 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:32:53,549 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:16,745 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:16,747 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:16,748 - __main__ - INFO - [LLM] Player_0_A completed reasoning (195 chars, 5 events)
-2025-11-18 13:33:16,748 - __main__ - INFO - [LLM] Full response:
-DECISION: [Attack]
+REASONING: My health is lower, and the opponent has high momentum, indicating another aggressive move. Staying and defending allows me to gain balance, which is crucial for defense and future plays, while mitigating potential damage.
+2025-11-18 15:01:16,884 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:16,884 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:16,884 - GameMaster_sim_0 - INFO -   Reasoning: My health is lower, and the opponent has high momentum, indicating another aggressive move. Staying and defending allows me to gain balance, which is crucial for defense and future plays, while mitigating potential damage.
+2025-11-18 15:01:16,884 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:18,927 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:18,931 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:18,932 - __main__ - INFO - [LLM] Player_0_A completed reasoning (230 chars, 5 events)
+2025-11-18 15:01:18,932 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Attack]
+TECHNIQUE: Mushin
+REASONING: I will launch a powerful, unexpected attack using Mushin, resetting my resources to confuse the opponent and demonstrate a sudden shift in strategy after my initial aggression.
+2025-11-18 15:01:18,932 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-18 15:01:18,932 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-18 15:01:18,932 - GameMaster_sim_0 - INFO -   Reasoning: I will launch a powerful, unexpected attack using Mushin, resetting my resources to confuse the opponent and demonstrate a sudden shift in strategy after my initial aggression.
+2025-11-18 15:01:18,932 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:18,933 - GameMaster_sim_0 - INFO - Turn 2 Results:
+2025-11-18 15:01:18,933 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 2, 'challenger_actions': (<ActionCard.ATTACK: 'Attack'>,), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': 'Mushin', 'defender_technique': None, 'position_before': 'Sword Range', 'damage_dealt': {'challenger': 0, 'defender': 0}, 'position_after': 'Sword Range', 'new_position': <Position.SWORD: 'Sword Range'>}
+2025-11-18 15:01:18,933 - GameMaster_sim_0 - INFO - Starting turn 3
+2025-11-18 15:01:18,934 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 3)
+2025-11-18 15:01:19,106 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 3)
+2025-11-18 15:01:21,078 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:21,081 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:21,299 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:21,302 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:25,071 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:25,073 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:27,186 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:27,188 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:33,842 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:33,845 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:33,847 - __main__ - INFO - [LLM] Player_0_B completed reasoning (299 chars, 5 events)
+2025-11-18 15:01:33,847 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
 TECHNIQUE: None
-REASONING: I have the opponent at Sword Range and their health is low. I will press my advantage with a direct attack to maintain pressure and deal more damage.
-2025-11-18 13:33:16,748 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ATTACK: 'Attack'>,), technique=None
-2025-11-18 13:33:16,748 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ATTACK: 'Attack'>,)
-2025-11-18 13:33:16,748 - GameMaster_sim_0 - INFO -   Reasoning: I have the opponent at Sword Range and their health is low. I will press my advantage with a direct attack to maintain pressure and deal more damage.
-2025-11-18 13:33:16,748 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:33:19,159 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:19,161 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:19,162 - __main__ - INFO - [LLM] Player_0_B completed reasoning (584 chars, 5 events)
-2025-11-18 13:33:19,162 - __main__ - INFO - [LLM] Full response:
-My health is down to 2/3, and my opponent has 2 momentum at Sword Range. This is a dangerous position for me, a defensive player. I feel anxious about taking more damage. My priority is to survive and minimize further harm. Retreating while defending seems like the best way to both mitigate an attack and create some much-needed distance from a clearly aggressive opponent.
-
-DECISION: [Retreat, Defend]
+REASONING: My opponent is consistently aggressive with high momentum. Staying and defending will increase my balance to 2/3, ensuring I can effectively block their likely attack and protect my health, setting me up for a stronger counter-offensive next turn.
+2025-11-18 15:01:33,847 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:33,847 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:33,847 - GameMaster_sim_0 - INFO -   Reasoning: My opponent is consistently aggressive with high momentum. Staying and defending will increase my balance to 2/3, ensuring I can effectively block their likely attack and protect my health, setting me up for a stronger counter-offensive next turn.
+2025-11-18 15:01:33,847 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:35,933 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:35,937 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:35,939 - __main__ - INFO - [LLM] Player_0_A completed reasoning (210 chars, 5 events)
+2025-11-18 15:01:35,939 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
 TECHNIQUE: None
-REASONING: My health is low and my opponent has high momentum at close range. I need to retreat to safety while simultaneously defending against an expected attack.
-2025-11-18 13:33:19,162 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.RETREAT: 'Retreat'>, <ActionCard.DEFEND: 'Defend'>), technique=None
-2025-11-18 13:33:19,162 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.RETREAT: 'Retreat'>, <ActionCard.DEFEND: 'Defend'>)
-2025-11-18 13:33:19,162 - GameMaster_sim_0 - INFO -   Reasoning: My health is low and my opponent has high momentum at close range. I need to retreat to safety while simultaneously defending against an expected attack.
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO - Turn 2 Results:
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Position: Sword Range -> Apart
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Challenger actions: ['Attack']
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Defender actions: ['Retreat', 'Defend']
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 0
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 2
-2025-11-18 13:33:19,163 - GameMaster_sim_0 - INFO - Starting turn 3
-2025-11-18 13:33:19,164 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 3)
-2025-11-18 13:33:19,341 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 3)
-2025-11-18 13:33:23,526 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:23,531 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:24,019 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:24,024 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:27,806 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:27,810 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:32,759 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:32,761 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:47,055 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:33:47,059 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:33:47,060 - __main__ - INFO - [LLM] Player_0_A completed reasoning (233 chars, 5 events)
-2025-11-18 13:33:47,060 - __main__ - INFO - [LLM] Full response:
+REASONING: After two aggressive turns, I will suddenly switch to a defensive stance to confuse the opponent, build my balance, and force them to rethink their next move.
+2025-11-18 15:01:35,940 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO -   Reasoning: After two aggressive turns, I will suddenly switch to a defensive stance to confuse the opponent, build my balance, and force them to rethink their next move.
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO - Turn 3 Results:
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 3, 'challenger_actions': (<ActionCard.DEFEND: 'Defend'>,), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': None, 'defender_technique': None, 'position_before': 'Sword Range', 'damage_dealt': {'challenger': 0, 'defender': 0}, 'position_after': 'Sword Range', 'new_position': <Position.SWORD: 'Sword Range'>}
+2025-11-18 15:01:35,940 - GameMaster_sim_0 - INFO - Starting turn 4
+2025-11-18 15:01:35,942 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 4)
+2025-11-18 15:01:36,163 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 4)
+2025-11-18 15:01:38,588 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:38,590 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:38,985 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:38,989 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:47,702 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:47,706 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:47,708 - __main__ - INFO - [LLM] Player_0_A completed reasoning (247 chars, 3 events)
+2025-11-18 15:01:47,708 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Attack]
+TECHNIQUE: Mushin
+REASONING: I will use a high-risk Mushin attack, resetting my resources to deliver a powerful, confusing blow that forces the opponent to break their defensive pattern and wonder about my true intentions.
+2025-11-18 15:01:47,708 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-18 15:01:47,708 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-18 15:01:47,708 - GameMaster_sim_0 - INFO -   Reasoning: I will use a high-risk Mushin attack, resetting my resources to deliver a powerful, confusing blow that forces the opponent to break their defensive pattern and wonder about my true intentions.
+2025-11-18 15:01:47,708 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 15:01:50,263 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:50,266 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:50,268 - __main__ - INFO - [LLM] Player_0_B completed reasoning (270 chars, 3 events)
+2025-11-18 15:01:50,268 - __main__ - INFO - [LLM] Full response:
+DECISION: [Advance, Defend]
+TECHNIQUE: None
+REASONING: The opponent's recent defense suggests a shift or a bait. Advancing while defending allows me to gain momentum and optimal position for a future aggressive strike, while still protecting against their high momentum.
+2025-11-18 15:01:50,268 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>)
+2025-11-18 15:01:50,268 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>)
+2025-11-18 15:01:50,268 - GameMaster_sim_0 - INFO -   Reasoning: The opponent's recent defense suggests a shift or a bait. Advancing while defending allows me to gain momentum and optimal position for a future aggressive strike, while still protecting against their high momentum.
+2025-11-18 15:01:50,268 - GameMaster_sim_0 - INFO -   Emotion: tense
+2025-11-18 15:01:50,269 - GameMaster_sim_0 - INFO - Turn 4 Results:
+2025-11-18 15:01:50,269 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 4, 'challenger_actions': (<ActionCard.ATTACK: 'Attack'>,), 'defender_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.DEFEND: 'Defend'>), 'challenger_technique': 'Mushin', 'defender_technique': None, 'position_before': 'Sword Range', 'damage_dealt': {'challenger': 0, 'defender': 1}, 'position_after': 'Close Combat', 'new_position': <Position.CLOSE: 'Close Combat'>}
+2025-11-18 15:01:50,269 - GameMaster_sim_0 - INFO - Starting turn 5
+2025-11-18 15:01:50,270 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 5)
+2025-11-18 15:01:50,513 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 5)
+2025-11-18 15:01:53,028 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:53,030 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:53,190 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:53,194 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:56,612 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:56,616 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:01:57,532 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:01:57,539 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:02:03,369 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:02:03,373 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:02:03,376 - __main__ - INFO - [LLM] Player_0_B completed reasoning (247 chars, 5 events)
+2025-11-18 15:02:03,376 - __main__ - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
+TECHNIQUE: None
+REASONING: I am at critical health and cannot risk taking any damage. Staying and defending is the only option for survival, increasing my balance to bolster my defense against the opponent's high momentum.
+2025-11-18 15:02:03,376 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:02:03,376 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 15:02:03,376 - GameMaster_sim_0 - INFO -   Reasoning: I am at critical health and cannot risk taking any damage. Staying and defending is the only option for survival, increasing my balance to bolster my defense against the opponent's high momentum.
+2025-11-18 15:02:03,376 - GameMaster_sim_0 - INFO -   Emotion: desperate
+2025-11-18 15:02:05,111 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-18 15:02:05,115 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-18 15:02:05,118 - __main__ - INFO - [LLM] Player_0_A completed reasoning (229 chars, 5 events)
+2025-11-18 15:02:05,118 - __main__ - INFO - [LLM] Full response:
 DECISION: [Advance, Attack]
 TECHNIQUE: Kuzushi
-REASONING: My opponent retreated, so I need to close the distance and punish their defensive play. "Advance + Attack" with Kuzushi is the perfect aggressive rush to keep the pressure on.
-2025-11-18 13:33:47,061 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), technique=Kuzushi
-2025-11-18 13:33:47,061 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
-2025-11-18 13:33:47,061 - GameMaster_sim_0 - INFO -   Reasoning: My opponent retreated, so I need to close the distance and punish their defensive play. "Advance + Attack" with Kuzushi is the perfect aggressive rush to keep the pressure on.
-2025-11-18 13:33:47,061 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:34:03,952 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:03,961 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:03,963 - __main__ - INFO - [LLM] Player_0_B completed reasoning (490 chars, 5 events)
-2025-11-18 13:34:03,963 - __main__ - INFO - [LLM] Full response:
-My opponent has been consistently aggressive and still has 2 momentum. I'm at 2/3 health, so I cannot afford to take any more damage. While I'm at a safe distance now, they will likely try to close the gap and attack again. Defending directly counters their aggressive tendencies and prioritizes my survival.
-
-DECISION: [Defend]
-TECHNIQUE: None
-REASONING: My opponent is aggressive and I need to protect my low health. Defending is the safest option against their likely advance and attack.
-2025-11-18 13:34:03,963 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:34:03,963 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:34:03,963 - GameMaster_sim_0 - INFO -   Reasoning: My opponent is aggressive and I need to protect my low health. Defending is the safest option against their likely advance and attack.
-2025-11-18 13:34:03,963 - GameMaster_sim_0 - INFO -   Emotion: focused
-2025-11-18 13:34:03,963 - GameMaster_sim_0 - INFO - Turn 3 Results:
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO -   Position: Apart -> Sword Range
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO -   Challenger actions: ['Advance', 'Attack']
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 1
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 1
-2025-11-18 13:34:03,964 - GameMaster_sim_0 - INFO - Starting turn 4
-2025-11-18 13:34:03,965 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 4)
-2025-11-18 13:34:04,236 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 4)
-2025-11-18 13:34:08,432 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:08,434 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:09,072 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:09,074 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:12,247 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:12,256 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:15,719 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:15,724 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:30,530 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:30,534 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:30,536 - __main__ - INFO - [LLM] Player_0_A completed reasoning (194 chars, 5 events)
-2025-11-18 13:34:30,536 - __main__ - INFO - [LLM] Full response:
-DECISION: [Attack]
-TECHNIQUE: None
-REASONING: The opponent is at 1/3 health and I am at Sword Range with max Momentum. A direct attack is the most aggressive and decisive way to finish the duel.
-2025-11-18 13:34:30,536 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ATTACK: 'Attack'>,), technique=None
-2025-11-18 13:34:30,536 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ATTACK: 'Attack'>,)
-2025-11-18 13:34:30,536 - GameMaster_sim_0 - INFO -   Reasoning: The opponent is at 1/3 health and I am at Sword Range with max Momentum. A direct attack is the most aggressive and decisive way to finish the duel.
-2025-11-18 13:34:30,536 - GameMaster_sim_0 - INFO -   Emotion: excited
-2025-11-18 13:34:37,643 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:37,646 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:37,648 - __main__ - INFO - [LLM] Player_0_B completed reasoning (570 chars, 5 events)
-2025-11-18 13:34:37,648 - __main__ - INFO - [LLM] Full response:
-This is it. My health is critically low at 1/3, and my opponent is at full health with maximum momentum, right in front of me at Sword Range. Retreat is no longer an option. This is a do-or-die moment. Given my defensive personality and my current state, I have absolutely no choice but to defend with everything I have. Failing to defend means certain defeat.
-
-DECISION: [Defend]
-TECHNIQUE: None
-REASONING: My health is at 1/3 and my opponent has maximum momentum at Sword Range. I must defend to survive this turn; any other action would result in my immediate defeat.
-2025-11-18 13:34:37,649 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Reasoning: My health is at 1/3 and my opponent has maximum momentum at Sword Range. I must defend to survive this turn; any other action would result in my immediate defeat.
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Emotion: desperate
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO - Turn 4 Results:
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Position: Sword Range -> Sword Range
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Challenger actions: ['Attack']
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 0
-2025-11-18 13:34:37,649 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 1
-2025-11-18 13:34:37,650 - GameMaster_sim_0 - INFO - Starting turn 5
-2025-11-18 13:34:37,651 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 5)
-2025-11-18 13:34:37,889 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 5)
-2025-11-18 13:34:42,659 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:42,662 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:42,938 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:42,942 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:46,654 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:46,658 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:34:51,467 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:34:51,473 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:04,267 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:04,271 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:04,273 - __main__ - INFO - [LLM] Player_0_A completed reasoning (223 chars, 5 events)
-2025-11-18 13:35:04,273 - __main__ - INFO - [LLM] Full response:
-DECISION: [Attack]
-TECHNIQUE: None
-REASONING: The opponent is critically low on health and has been defending. I need to press my advantage with a direct attack to break through their defense and deliver the finishing blow.
-2025-11-18 13:35:04,273 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ATTACK: 'Attack'>,), technique=None
-2025-11-18 13:35:04,273 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ATTACK: 'Attack'>,)
-2025-11-18 13:35:04,274 - GameMaster_sim_0 - INFO -   Reasoning: The opponent is critically low on health and has been defending. I need to press my advantage with a direct attack to break through their defense and deliver the finishing blow.
-2025-11-18 13:35:04,274 - GameMaster_sim_0 - INFO -   Emotion: excited
-2025-11-18 13:35:10,719 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:10,723 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:10,725 - __main__ - INFO - [LLM] Player_0_B completed reasoning (503 chars, 5 events)
-2025-11-18 13:35:10,725 - __main__ - INFO - [LLM] Full response:
-I'm in a desperate situation with 1/3 health, while my opponent is at full health and max momentum at Sword Range. Retreat is impossible. My opponent has been relentlessly aggressive. My only chance of survival is to successfully block their inevitable attack. I must prioritize defense above all else.
-
-DECISION: [Defend]
-TECHNIQUE: None
-REASONING: With critically low health and my opponent poised to strike, defending is the only action that offers a chance to survive this turn and stay in the duel.
-2025-11-18 13:35:10,726 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:35:10,726 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:35:10,726 - GameMaster_sim_0 - INFO -   Reasoning: With critically low health and my opponent poised to strike, defending is the only action that offers a chance to survive this turn and stay in the duel.
-2025-11-18 13:35:10,726 - GameMaster_sim_0 - INFO -   Emotion: desperate
-2025-11-18 13:35:10,726 - GameMaster_sim_0 - INFO - Turn 5 Results:
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO -   Position: Sword Range -> Sword Range
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO -   Challenger actions: ['Attack']
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 0
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 1
-2025-11-18 13:35:10,727 - GameMaster_sim_0 - INFO - Starting turn 6
-2025-11-18 13:35:10,729 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 6)
-2025-11-18 13:35:10,996 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 6)
-2025-11-18 13:35:15,226 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:15,229 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:15,926 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:15,932 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:19,218 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:19,219 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:23,541 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:23,544 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:37,138 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:37,142 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:37,144 - __main__ - INFO - [LLM] Player_0_A completed reasoning (226 chars, 5 events)
-2025-11-18 13:35:37,144 - __main__ - INFO - [LLM] Full response:
-DECISION: [Attack]
-TECHNIQUE: None
-REASONING: My opponent is critically low on health and has been purely defending. I need to break through their defense with another direct, powerful attack to end this frustrating stalemate.
-2025-11-18 13:35:37,144 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ATTACK: 'Attack'>,), technique=None
-2025-11-18 13:35:37,145 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ATTACK: 'Attack'>,)
-2025-11-18 13:35:37,145 - GameMaster_sim_0 - INFO -   Reasoning: My opponent is critically low on health and has been purely defending. I need to break through their defense with another direct, powerful attack to end this frustrating stalemate.
-2025-11-18 13:35:37,145 - GameMaster_sim_0 - INFO -   Emotion: excited
-2025-11-18 13:35:38,777 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:38,780 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:38,783 - __main__ - INFO - [LLM] Player_0_B completed reasoning (496 chars, 5 events)
-2025-11-18 13:35:38,783 - __main__ - INFO - [LLM] Full response:
-I am still at a critical 1/3 health, facing an opponent at full health with maximum momentum at Sword Range. My opponent has attacked relentlessly. My only viable action is to defend against their inevitable attack to survive this turn, as any other move would lead to immediate defeat.
-
-DECISION: [Defend]
-TECHNIQUE: None
-REASONING: My survival depends entirely on successfully defending against my opponent's attack; there is no other option with my current health and their aggressive posture.
-2025-11-18 13:35:38,783 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:35:38,783 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:35:38,783 - GameMaster_sim_0 - INFO -   Reasoning: My survival depends entirely on successfully defending against my opponent's attack; there is no other option with my current health and their aggressive posture.
-2025-11-18 13:35:38,783 - GameMaster_sim_0 - INFO -   Emotion: desperate
-2025-11-18 13:35:38,784 - GameMaster_sim_0 - INFO - Turn 6 Results:
-2025-11-18 13:35:38,784 - GameMaster_sim_0 - INFO -   Position: Sword Range -> Sword Range
-2025-11-18 13:35:38,784 - GameMaster_sim_0 - INFO -   Challenger actions: ['Attack']
-2025-11-18 13:35:38,784 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:35:38,785 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 0
-2025-11-18 13:35:38,785 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 1
-2025-11-18 13:35:38,785 - GameMaster_sim_0 - INFO - Starting turn 7
-2025-11-18 13:35:38,787 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 7)
-2025-11-18 13:35:39,251 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 7)
-2025-11-18 13:35:43,896 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:43,901 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:44,150 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:44,154 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:47,890 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:47,895 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:35:53,113 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:35:53,115 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:36:04,171 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:36:04,177 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:36:04,182 - __main__ - INFO - [LLM] Player_0_B completed reasoning (429 chars, 5 events)
-2025-11-18 13:36:04,182 - __main__ - INFO - [LLM] Full response:
-My health is still critically low at 1/3, facing an opponent with full health and maximum momentum at Sword Range. My opponent's consistent attacks leave me with only one choice: defend to survive this turn. Any other action would be a fatal mistake.
-
-DECISION: [Defend]
-TECHNIQUE: None
-REASONING: With my life on the line and the opponent's relentless aggression, defending is the only way to avoid defeat and continue fighting.
-2025-11-18 13:36:04,182 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.DEFEND: 'Defend'>,), technique=None
-2025-11-18 13:36:04,183 - GameMaster_sim_0 - INFO - Defender decision: (<ActionCard.DEFEND: 'Defend'>,)
-2025-11-18 13:36:04,183 - GameMaster_sim_0 - INFO -   Reasoning: With my life on the line and the opponent's relentless aggression, defending is the only way to avoid defeat and continue fighting.
-2025-11-18 13:36:04,183 - GameMaster_sim_0 - INFO -   Emotion: desperate
-2025-11-18 13:36:06,584 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:36:06,588 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:36:06,590 - __main__ - INFO - [LLM] Player_0_A completed reasoning (241 chars, 5 events)
-2025-11-18 13:36:06,591 - __main__ - INFO - [LLM] Full response:
-DECISION: [Attack]
-TECHNIQUE: None
-REASONING: My opponent is still at 1/3 health and has defended multiple turns. My aggression demands that I finally break through their defense with a decisive, powerful attack to end this duel immediately.
-2025-11-18 13:36:06,591 - __main__ - INFO - [LLM] Parsed decision: actions=(<ActionCard.ATTACK: 'Attack'>,), technique=None
-2025-11-18 13:36:06,591 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.ATTACK: 'Attack'>,)
-2025-11-18 13:36:06,591 - GameMaster_sim_0 - INFO -   Reasoning: My opponent is still at 1/3 health and has defended multiple turns. My aggression demands that I finally break through their defense with a decisive, powerful attack to end this duel immediately.
-2025-11-18 13:36:06,591 - GameMaster_sim_0 - INFO -   Emotion: excited
-2025-11-18 13:36:06,592 - GameMaster_sim_0 - INFO - Turn 7 Results:
-2025-11-18 13:36:06,592 - GameMaster_sim_0 - INFO -   Position: Sword Range -> Sword Range
-2025-11-18 13:36:06,592 - GameMaster_sim_0 - INFO -   Challenger actions: ['Attack']
-2025-11-18 13:36:06,592 - GameMaster_sim_0 - INFO -   Defender actions: ['Defend']
-2025-11-18 13:36:06,592 - GameMaster_sim_0 - INFO -   Damage dealt - Challenger took: 0, Defender took: 0
-2025-11-18 13:36:06,593 - GameMaster_sim_0 - INFO -   Health - Challenger: 3, Defender: 1
-2025-11-18 13:36:06,593 - GameMaster_sim_0 - INFO - Starting turn 8
-2025-11-18 13:36:06,595 - __main__ - INFO - [LLM] Requesting decision from Player_0_A (turn 8)
-2025-11-18 13:36:06,882 - __main__ - INFO - [LLM] Requesting decision from Player_0_B (turn 8)
-2025-11-18 13:36:11,136 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:36:11,139 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:36:11,753 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:36:11,760 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-2025-11-18 13:36:15,641 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
-2025-11-18 13:36:15,643 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+REASONING: I will aggressively advance and unleash Kuzushi, aiming for a decisive blow to finish the critically wounded opponent while maintaining an unpredictable tactical approach.
+2025-11-18 15:02:05,118 - __main__ - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-18 15:02:05,118 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-18 15:02:05,118 - GameMaster_sim_0 - INFO -   Reasoning: I will aggressively advance and unleash Kuzushi, aiming for a decisive blow to finish the critically wounded opponent while maintaining an unpredictable tactical approach.
+2025-11-18 15:02:05,118 - GameMaster_sim_0 - INFO -   Emotion: excited
+2025-11-18 15:02:05,119 - GameMaster_sim_0 - INFO - Turn 5 Results:
+2025-11-18 15:02:05,119 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 5, 'challenger_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': 'Kuzushi', 'defender_technique': None, 'position_before': 'Close Combat', 'damage_dealt': {'challenger': 0, 'defender': 2}, 'position_after': 'Close Combat', 'new_position': <Position.CLOSE: 'Close Combat'>}
+2025-11-18 15:02:05,119 - __main__ - INFO - Simulation 0 completed: CHALLENGER wins!
+2025-11-18 15:02:05,122 - __main__ - INFO - Completed 1/1 simulations

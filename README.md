@@ -102,7 +102,7 @@ export GOOGLE_CLOUD_LOCATION="us-central1"  # Optional
 
 4. **Run locally**
 ```bash
-python bushido_test_agent.py
+python playtest_agent.py
 ```
 
 ### Production Deployment (Vertex AI)
