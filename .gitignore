@@ -1,0 +1,13 @@
+*.log
+*.env
+CLAUDE.md
+GEMINI.md
+KNOWLEDGE.md
+RULES.md
+tessl.json
+AGENTS.md
+mcp.json
+.tessl
+.claude
+.gemini
+.cursor
