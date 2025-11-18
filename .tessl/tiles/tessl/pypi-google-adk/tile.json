@@ -1,0 +1,7 @@
+{
+  "name": "tessl/pypi-google-adk",
+  "version": "1.13.0",
+  "docs": "docs/index.md",
+  "describes": "pkg:pypi/google-adk@1.13.0",
+  "summary": "Agent Development Kit - A flexible and modular framework for developing and deploying AI agents"
+}

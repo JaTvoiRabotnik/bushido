@@ -1,0 +1,31 @@
+# Bushido Card Game Testing Agent - Requirements
+# For Google ADK and Vertex AI deployment
+
+# Core Google AI dependencies
+google-genai>=0.4.0
+google-cloud-aiplatform>=1.38.0
+vertexai>=1.38.0
+
+# Google ADK (Agent Development Kit)
+google-adk>=0.1.0
+
+# Async support
+asyncio-mqtt>=0.16.1
+aiofiles>=23.2.1
+
+# Data handling
+pydantic>=2.5.0
+pandas>=2.1.0
+
+# Utilities
+python-dotenv>=1.0.0
+tenacity>=8.2.3
+
+# Logging and monitoring
+structlog>=24.1.0
+rich>=13.7.0
+
+# Testing (for development)
+pytest>=7.4.0
+pytest-asyncio>=0.21.1
+pytest-cov>=4.1.0

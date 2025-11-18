@@ -1,0 +1,11 @@
+{
+  "name": "tessl/cli-setup",
+  "private": false,
+  "version": "0.50.0",
+  "summary": "Tessl CLI MCP tool usage guidelines",
+  "steering": {
+    "get_library_context": {
+      "rules": "steering/get_library_context.md"
+    }
+  }
+}

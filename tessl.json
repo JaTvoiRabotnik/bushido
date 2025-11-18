@@ -1,0 +1,8 @@
+{
+  "name": "bushido",
+  "dependencies": {
+    "tessl/pypi-google-adk": {
+      "version": "1.13.0"
+    }
+  }
+}
