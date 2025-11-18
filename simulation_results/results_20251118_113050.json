@@ -1,0 +1,165 @@
+[
+  {
+    "game_id": "b0c57e3b-d86a-4b28-b8f8-ff40ba871d41",
+    "winner": null,
+    "total_turns": 10,
+    "final_health": {
+      "challenger": 3,
+      "defender": 3
+    },
+    "average_tension": 0.0025,
+    "average_choice_difficulty": 0.7999999999999999,
+    "average_enjoyment": 0.68,
+    "turn_history": [
+      {
+        "turn": 1,
+        "challenger_actions": [
+          "ActionCard.DEFEND"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 2,
+        "challenger_actions": [
+          "ActionCard.RETREAT"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 3,
+        "challenger_actions": [],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 4,
+        "challenger_actions": [
+          "ActionCard.DEFEND"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 5,
+        "challenger_actions": [],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 6,
+        "challenger_actions": [
+          "ActionCard.DEFEND"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Mizu no Kokoro",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 7,
+        "challenger_actions": [],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 8,
+        "challenger_actions": [
+          "ActionCard.DEFEND"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Mizu no Kokoro",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 9,
+        "challenger_actions": [
+          "ActionCard.INSIGHT"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Nagashi",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      },
+      {
+        "turn": 10,
+        "challenger_actions": [
+          "ActionCard.DEFEND"
+        ],
+        "defender_actions": [],
+        "challenger_technique": "Mizu no Kokoro",
+        "defender_technique": "Mizu no Kokoro",
+        "position_before": "Apart",
+        "damage_dealt": {
+          "challenger": 0,
+          "defender": 0
+        },
+        "position_after": "Apart"
+      }
+    ],
+    "simulation_id": 0,
+    "personas": {
+      "challenger": "Unpredictable - Varies tactics to confuse",
+      "defender": "Adaptive - Changes strategy based on opponent"
+    }
+  }
+]

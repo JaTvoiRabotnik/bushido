@@ -29,8 +29,13 @@ from google.genai import types
 import vertexai
 from vertexai.generative_models import GenerativeModel
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure logging to file
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    filename='bushido_simulation.log',
+    filemode='a'
+)
 logger = logging.getLogger(__name__)
 
 # Environment configuration
@@ -357,6 +362,14 @@ class BushidoPlayerAgent:
         self.agent = self._create_agent()
         self.runner = InMemoryRunner(self.agent, app_name="BushidoGame")
 
+        # Initialize session in the runner's session service
+        try:
+            if hasattr(self.runner, 'session_service') and hasattr(self.runner.session_service, 'create_session'):
+                self.runner.session_service.create_session(session_id=self.session_id)
+                logger.debug(f"Initialized session: {self.session_id}")
+        except Exception as e:
+            logger.debug(f"Session initialization note: {e} (may auto-create on first use)")
+
     def _create_agent(self) -> Agent:
         """Create ADK agent with human-like reasoning"""
 
@@ -485,15 +498,28 @@ Think through your options carefully, express your thoughts, and then provide yo
 
             # Run the agent
             full_response = ""
-            async for event in self.runner.run_async(
-                user_id=self.user_id,
-                session_id=self.session_id,
-                new_message=message
-            ):
-                if event.content and event.content.parts:
-                    for part in event.content.parts:
-                        if hasattr(part, 'text') and part.text:
-                            full_response += part.text
+            try:
+                async for event in self.runner.run_async(
+                    user_id=self.user_id,
+                    session_id=self.session_id,
+                    new_message=message
+                ):
+                    if event.content and event.content.parts:
+                        for part in event.content.parts:
+                            if hasattr(part, 'text') and part.text:
+                                full_response += part.text
+            except Exception as session_error:
+                # If session error, try without session_id (let runner auto-create)
+                logger.warning(f"Session error, retrying without explicit session_id: {session_error}")
+                async for event in self.runner.run_async(
+                    user_id=self.user_id,
+                    session_id=f"{self.session_id}_retry_{self.game_state.turn_number}",
+                    new_message=message
+                ):
+                    if event.content and event.content.parts:
+                        for part in event.content.parts:
+                            if hasattr(part, 'text') and part.text:
+                                full_response += part.text
 
             logger.info(f"{self.state.persona.name} reasoning:\n{full_response[:200]}...")
 

@@ -1,0 +1,34 @@
+{
+  "total_simulations": 1,
+  "balance_metrics": {
+    "challenger_win_rate": 0.0,
+    "defender_win_rate": 0.0,
+    "draw_rate": 0.0,
+    "average_game_length": 10.0,
+    "health_differential": 0.0
+  },
+  "engagement_metrics": {
+    "average_tension": 0.0025,
+    "average_choice_difficulty": 0.7999999999999999,
+    "average_enjoyment": 0.68,
+    "high_tension_games": 0.0,
+    "high_enjoyment_games": 0.0
+  },
+  "matchup_analysis": {
+    "Unpredictable - Varies tactics to confuse_vs_Adaptive - Changes strategy based on opponent": {
+      "games": 1,
+      "challenger_wins": 0,
+      "total_enjoyment": 0.68,
+      "total_tension": 0.0025,
+      "win_rate": 0.0,
+      "avg_enjoyment": 0.68,
+      "avg_tension": 0.0025
+    }
+  },
+  "recommendations": [
+    "Consider buffing Challenger's starting momentum",
+    "Games may be too predictable - consider adding more swing mechanics",
+    "Games may be dragging - consider increasing damage potential"
+  ],
+  "timestamp": "2025-11-18T11:30:50.429515"
+}

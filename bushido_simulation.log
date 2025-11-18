@@ -1,0 +1,135 @@
+2025-11-18 12:49:38,032 - __main__ - INFO - Vertex AI initialized: project=bushido-478510, location=europe-west2
+2025-11-18 12:49:41,954 - __main__ - INFO - Starting 1 simulations
+2025-11-18 12:49:41,954 - __main__ - INFO - Simulation 0: Player_0_A vs Player_0_B
+2025-11-18 12:49:41,955 - GameMaster_sim_0 - INFO - Game 1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a initialized
+2025-11-18 12:49:41,955 - GameMaster_sim_0 - INFO - Starting turn 1
+2025-11-18 12:49:41,955 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,955 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_1
+2025-11-18 12:49:41,955 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,956 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 12:49:41,956 - GameMaster_sim_0 - INFO -   Reasoning: Defend to minimize damage
+2025-11-18 12:49:41,956 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,956 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,956 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_1
+2025-11-18 12:49:41,956 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO - Starting turn 2
+2025-11-18 12:49:41,957 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,957 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_2
+2025-11-18 12:49:41,957 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO - Challenger decision: ()
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,957 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,957 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,957 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_2
+2025-11-18 12:49:41,958 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO - Starting turn 3
+2025-11-18 12:49:41,958 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,958 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_3
+2025-11-18 12:49:41,958 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO -   Reasoning: Defend to minimize damage
+2025-11-18 12:49:41,958 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,958 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,959 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_3
+2025-11-18 12:49:41,959 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,959 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,959 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,959 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,959 - GameMaster_sim_0 - INFO - Starting turn 4
+2025-11-18 12:49:41,959 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,959 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_4
+2025-11-18 12:49:41,959 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,959 - GameMaster_sim_0 - INFO - Challenger decision: ()
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,960 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,960 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_4
+2025-11-18 12:49:41,960 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO - Starting turn 5
+2025-11-18 12:49:41,960 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,960 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_5
+2025-11-18 12:49:41,960 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,960 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO -   Reasoning: Defend to minimize damage
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,961 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,961 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_5
+2025-11-18 12:49:41,961 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO - Starting turn 6
+2025-11-18 12:49:41,961 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,961 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_6
+2025-11-18 12:49:41,961 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO - Challenger decision: ()
+2025-11-18 12:49:41,961 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,962 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,962 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_6
+2025-11-18 12:49:41,962 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO - Starting turn 7
+2025-11-18 12:49:41,962 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,962 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_7
+2025-11-18 12:49:41,962 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.INSIGHT: 'Insight'>,)
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO -   Reasoning: Learn about opponent's capabilities
+2025-11-18 12:49:41,962 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,963 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,963 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_7
+2025-11-18 12:49:41,963 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO - Starting turn 8
+2025-11-18 12:49:41,963 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,963 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_8
+2025-11-18 12:49:41,963 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO - Challenger decision: ()
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,963 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,964 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,964 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_8
+2025-11-18 12:49:41,964 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO - Starting turn 9
+2025-11-18 12:49:41,964 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,964 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_9
+2025-11-18 12:49:41,964 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO - Challenger decision: (<ActionCard.INSIGHT: 'Insight'>,)
+2025-11-18 12:49:41,964 - GameMaster_sim_0 - INFO -   Reasoning: Learn about opponent's capabilities
+2025-11-18 12:49:41,965 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,965 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,965 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_9
+2025-11-18 12:49:41,965 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,965 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,965 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,965 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,965 - GameMaster_sim_0 - INFO - Starting turn 10
+2025-11-18 12:49:41,965 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger
+2025-11-18 12:49:41,965 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Challenger_retry_10
+2025-11-18 12:49:41,965 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,966 - GameMaster_sim_0 - INFO - Challenger decision: ()
+2025-11-18 12:49:41,966 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,966 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,966 - __main__ - WARNING - Session error, retrying without explicit session_id: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender
+2025-11-18 12:49:41,966 - __main__ - ERROR - Error getting decision from agent: Session not found: game_1cdf9f42-9771-4ab9-b6ee-1ac7d5ddbd7a_Defender_retry_10
+2025-11-18 12:49:41,966 - __main__ - INFO - Falling back to deterministic decision making
+2025-11-18 12:49:41,967 - GameMaster_sim_0 - INFO - Defender decision: ()
+2025-11-18 12:49:41,967 - GameMaster_sim_0 - INFO -   Reasoning: Stay put and build balance. Safe but passive.
+2025-11-18 12:49:41,967 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-18 12:49:41,967 - __main__ - INFO - Completed 1/1 simulations
