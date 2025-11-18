@@ -29,14 +29,19 @@ from google.genai import types
 import vertexai
 from vertexai.generative_models import GenerativeModel
 
-# Configure logging to file
+# Configure logging to file with INFO level (only INFO, WARNING, ERROR)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     filename='bushido_simulation.log',
-    filemode='a'
+    filemode='w'  # Overwrite log file each run for cleaner debugging
 )
 logger = logging.getLogger(__name__)
+
+# Suppress verbose logs from google_adk and google.auth
+logging.getLogger('google_adk').setLevel(logging.WARNING)
+logging.getLogger('google.auth').setLevel(logging.WARNING)
+logging.getLogger('asyncio').setLevel(logging.WARNING)
 
 # Environment configuration
 PROJECT_ID = os.environ.get("GOOGLE_CLOUD_PROJECT", "")
@@ -290,20 +295,26 @@ Risk Tolerance: {player_state.persona.risk_tolerance:.2f}
 AVAILABLE ACTIONS (at {position.value}):
 
 BASIC ACTIONS:
-- Stay (gain 1 Balance)
 - Attack (deal damage based on your Strength + position bonus)
 - Defend (reduce incoming damage by your Defense)
 - Insight (learn about opponent's hidden attributes)
 
 MOVEMENT:
+- Stay (gain 1 Balance)
 - Advance (move closer, gain Momentum, lose Balance)
 - Retreat{"" if turn <= 3 else " (FORBIDDEN after turn 3 - honor violation!)"}
 
 COMBINATION PLAYS:
+
+- Stay + Attack (standard strike)
+- Stay + Defend (hold position)
+- Stay + Insight (observe opponent)
 - Advance + Attack (aggressive rush)
 - Advance + Defend (cautious advance)
+- Advance + Insight (probe opponent)
 - Retreat + Attack (hit and run){"" if turn <= 3 else " (ONLY if turn <= 3)"}
 - Retreat + Defend (full defense){"" if turn <= 3 else " (ONLY if turn <= 3)"}
+- Retreat + Insight (fall back and observe){"" if turn <= 3 else " (ONLY if turn <= 3)"}
 
 RESOURCES:
 - Momentum helps with aggressive techniques
@@ -359,16 +370,42 @@ class BushidoPlayerAgent:
         self.game_state = game_state
         self.session_id = f"game_{game_state.game_id}_{state.role.value}"
         self.user_id = f"player_{state.persona.name}"
-        self.agent = self._create_agent()
-        self.runner = InMemoryRunner(self.agent, app_name="BushidoGame")
 
-        # Initialize session in the runner's session service
-        try:
-            if hasattr(self.runner, 'session_service') and hasattr(self.runner.session_service, 'create_session'):
-                self.runner.session_service.create_session(session_id=self.session_id)
-                logger.debug(f"Initialized session: {self.session_id}")
-        except Exception as e:
-            logger.debug(f"Session initialization note: {e} (may auto-create on first use)")
+        logger.info(f"[INIT] Creating agent for {state.persona.name} ({state.role.value})")
+        logger.info(f"[INIT] Session ID: {self.session_id}")
+        logger.info(f"[INIT] User ID: {self.user_id}")
+
+        self.agent = self._create_agent()
+        logger.info(f"[INIT] Agent created with model: gemini-2.5-flash")
+
+        self.runner = InMemoryRunner(self.agent, app_name="BushidoGame")
+        logger.info(f"[INIT] InMemoryRunner created")
+
+    async def initialize_session(self):
+        """Initialize the session asynchronously (must be called after __init__)"""
+        logger.info(f"[INIT] Attempting to initialize session for {self.session_id}")
+
+        if hasattr(self.runner, 'session_service'):
+            if hasattr(self.runner.session_service, 'create_session'):
+                try:
+                    # create_session is async and requires app_name, user_id, and session_id
+                    await self.runner.session_service.create_session(
+                        app_name="BushidoGame",
+                        user_id=self.user_id,
+                        session_id=self.session_id
+                    )
+                    logger.info(f"[INIT] Session created successfully: {self.session_id}")
+                except Exception as e:
+                    logger.error(f"[INIT] Failed to create session: {type(e).__name__}: {e}")
+                    import traceback
+                    logger.error(f"[INIT] Traceback: {traceback.format_exc()}")
+                    raise RuntimeError(f"Could not create session {self.session_id}: {e}") from e
+            else:
+                logger.error(f"[INIT] session_service does not have create_session method")
+                raise RuntimeError("session_service does not support create_session")
+        else:
+            logger.error(f"[INIT] Runner does not have session_service attribute")
+            raise RuntimeError("Runner does not have session_service")
 
     def _create_agent(self) -> Agent:
         """Create ADK agent with human-like reasoning"""
@@ -381,7 +418,7 @@ class BushidoPlayerAgent:
 
         return Agent(
             name=f"Player_{self.state.persona.name}",
-            model="gemini-2.0-flash-exp",
+            model="gemini-2.5-flash",  # Using stable model for broader region availability
             description=f"A {self.state.persona.personality.value} player in a tactical card duel",
             instruction=f"""
 You are playing a tactical samurai card duel game as {self.state.persona.name}.
@@ -477,70 +514,72 @@ Focus on:
         Invoke the agent via runner to get a decision
         Returns parsed decision with actions, technique, and reasoning
         """
-        try:
-            # Create the prompt for this turn
-            prompt = f"""
+        # Create the prompt for this turn
+        opponent = (self.game_state.defender if self.state.role == PlayerRole.CHALLENGER
+                   else self.game_state.challenger)
+
+        prompt = f"""
 It's your turn in the duel! You are {self.state.persona.name}.
 
 Current game state:
 - Turn: {self.game_state.turn_number}
 - Your health: {self.state.health}/3
-- Opponent health: {(self.game_state.defender if self.state.role == PlayerRole.CHALLENGER else self.game_state.challenger).health}/3
+- Opponent health: {opponent.health}/3
 
 Use your tools to analyze the situation and make your decision.
 Think through your options carefully, express your thoughts, and then provide your decision.
 """
 
-            # Create message
-            message = types.Content(
-                parts=[types.Part(text=prompt)]
-            )
+        logger.info(f"[LLM] Requesting decision from {self.state.persona.name} (turn {self.game_state.turn_number})")
 
-            # Run the agent
-            full_response = ""
-            try:
-                async for event in self.runner.run_async(
-                    user_id=self.user_id,
-                    session_id=self.session_id,
-                    new_message=message
-                ):
-                    if event.content and event.content.parts:
-                        for part in event.content.parts:
-                            if hasattr(part, 'text') and part.text:
-                                full_response += part.text
-            except Exception as session_error:
-                # If session error, try without session_id (let runner auto-create)
-                logger.warning(f"Session error, retrying without explicit session_id: {session_error}")
-                async for event in self.runner.run_async(
-                    user_id=self.user_id,
-                    session_id=f"{self.session_id}_retry_{self.game_state.turn_number}",
-                    new_message=message
-                ):
-                    if event.content and event.content.parts:
-                        for part in event.content.parts:
-                            if hasattr(part, 'text') and part.text:
-                                full_response += part.text
+        # Create message
+        message = types.Content(
+            parts=[types.Part(text=prompt)]
+        )
 
-            logger.info(f"{self.state.persona.name} reasoning:\n{full_response[:200]}...")
+        # Run the agent
+        full_response = ""
+        event_count = 0
 
-            # Parse the decision from response
-            decision = self._parse_decision(full_response)
+        try:
+            async for event in self.runner.run_async(
+                user_id=self.user_id,
+                session_id=self.session_id,
+                new_message=message
+            ):
+                event_count += 1
 
-            # Update emotional state based on game situation
-            opponent = (self.game_state.defender if self.state.role == PlayerRole.CHALLENGER
-                       else self.game_state.challenger)
-            observations = {
-                "tension_level": decision["tension"],
-                "opponent_health": opponent.health
-            }
-            self._update_emotional_state(observations)
-
-            return decision
+                if event.content and event.content.parts:
+                    for part in event.content.parts:
+                        if hasattr(part, 'text') and part.text:
+                            full_response += part.text
 
         except Exception as e:
-            logger.error(f"Error getting decision from agent: {e}")
-            logger.info("Falling back to deterministic decision making")
-            return self._fallback_decision()
+            logger.error(f"[LLM] Error during runner.run_async: {type(e).__name__}: {e}")
+            logger.error(f"[LLM] Session ID: {self.session_id}")
+            logger.error(f"[LLM] User ID: {self.user_id}")
+            logger.error(f"[LLM] Events received before error: {event_count}")
+            raise
+
+        logger.info(f"[LLM] {self.state.persona.name} completed reasoning ({len(full_response)} chars, {event_count} events)")
+        logger.info(f"[LLM] Full response:\n{full_response}")
+
+        if not full_response:
+            logger.error(f"[LLM] Empty response received from agent after {event_count} events")
+            raise RuntimeError(f"Empty response from LLM for {self.state.persona.name}")
+
+        # Parse the decision from response
+        decision = self._parse_decision(full_response)
+        logger.info(f"[LLM] Parsed decision: actions={decision['actions']}, technique={decision['technique']}")
+
+        # Update emotional state based on game situation
+        observations = {
+            "tension_level": decision["tension"],
+            "opponent_health": opponent.health
+        }
+        self._update_emotional_state(observations)
+
+        return decision
 
     def _parse_decision(self, response: str) -> Dict[str, Any]:
         """Parse agent's response to extract decision"""
@@ -590,18 +629,11 @@ Think through your options carefully, express your thoughts, and then provide yo
             "actions": actions_tuple,
             "technique": technique,
             "reasoning": reasoning,
-            "deliberation": response[:200],  # First 200 chars of full reasoning
+            "deliberation": response,  # Full reasoning response
             "tension": tension,
             "enjoyment": enjoyment,
             "choice_difficulty": choice_difficulty
         }
-
-    def _fallback_decision(self) -> Dict[str, Any]:
-        """Fallback to deterministic decision if LLM fails"""
-        # Use the existing logic as fallback
-        situation = self.analyze_situation()
-        options = self.evaluate_options(situation)
-        return self.make_decision(options)
 
     def _calculate_tension(self) -> float:
         """Calculate current tension level"""
@@ -622,77 +654,10 @@ Think through your options carefully, express your thoughts, and then provide yo
 
         return min(enjoyment, 1.0)
 
-    def analyze_situation(self) -> Dict[str, Any]:
-        """
-        Analyze current game situation with human-like observations
-        Pattern: Reasoning-Based Information Extraction (page 152)
-        """
-        
-        # Calculate tension based on game state
-        health_pressure = 1.0 - (self.state.health / 3.0)
-        turn_pressure = min(self.game_state.turn_number / 5.0, 1.0)
-        
-        opponent = (self.game_state.defender 
-                   if self.state.role == PlayerRole.CHALLENGER 
-                   else self.game_state.challenger)
-        
-        # Human-like observations
-        observations = {
-            "my_health": self.state.health,
-            "opponent_health": opponent.health,
-            "position": self.game_state.position.value,
-            "my_resources": {
-                "momentum": self.state.momentum,
-                "balance": self.state.balance
-            },
-            "opponent_resources": {
-                "momentum": opponent.momentum,
-                "balance": opponent.balance
-            },
-            "turn": self.game_state.turn_number,
-            "tension_level": (health_pressure + turn_pressure) / 2,
-            "emotional_reading": self._read_opponent_emotion(opponent),
-            "pattern_recognition": self._recognize_patterns()
-        }
-        
-        # Update emotional state based on situation
-        self._update_emotional_state(observations)
-        
-        return observations
-    
-    def _read_opponent_emotion(self, opponent: PlayerState) -> str:
-        """Attempt to read opponent's emotional state"""
-        if opponent.momentum >= 2:
-            return "aggressive_confident"
-        elif opponent.balance >= 2:
-            return "defensive_cautious"
-        elif opponent.health == 1:
-            return "desperate_dangerous"
-        else:
-            return "neutral_unreadable"
-    
-    def _recognize_patterns(self) -> Dict[str, Any]:
-        """Recognize patterns from game history"""
-        if len(self.game_state.turn_history) < 2:
-            return {"identified": False, "pattern": None}
-        
-        # Simple pattern recognition
-        last_turns = self.game_state.turn_history[-2:]
-        
-        # Check for repeated actions
-        if all(turn.get("opponent_action") == ActionCard.ADVANCE.value 
-               for turn in last_turns):
-            return {"identified": True, "pattern": "aggressive_rush"}
-        elif all(turn.get("opponent_action") == ActionCard.DEFEND.value 
-                for turn in last_turns):
-            return {"identified": True, "pattern": "turtle_defense"}
-        
-        return {"identified": False, "pattern": None}
-    
     def _update_emotional_state(self, observations: Dict):
         """Update emotional state based on game situation"""
         tension = observations["tension_level"]
-        
+
         if self.state.health == 1:
             self.state.persona.emotional_state = "desperate"
             self.state.persona.confidence_level *= 0.7
@@ -704,269 +669,10 @@ Think through your options carefully, express your thoughts, and then provide yo
             self.state.persona.confidence_level *= 1.2
         else:
             self.state.persona.emotional_state = "focused"
-        
-        # Clamp confidence
-        self.state.persona.confidence_level = max(0.1, min(1.0, 
-                                                  self.state.persona.confidence_level))
-    
-    def evaluate_options(self, situation: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """
-        Evaluate available options with human-like reasoning
-        Pattern: Tree of Thoughts (page 245)
-        """
-        
-        options = []
-        position = Position[self.game_state.position.name]
-        
-        # Generate possible moves based on position
-        possible_actions = self._get_possible_actions(position)
-        
-        for action_combo in possible_actions:
-            option = {
-                "actions": action_combo,
-                "reasoning": self._reason_about_option(action_combo, situation),
-                "emotional_response": self._emotional_response_to_option(action_combo),
-                "perceived_risk": self._calculate_risk(action_combo, situation),
-                "expected_enjoyment": self._calculate_enjoyment(action_combo)
-            }
-            
-            # Score based on personality
-            option["score"] = self._score_option(option)
-            options.append(option)
-        
-        return sorted(options, key=lambda x: x["score"], reverse=True)
-    
-    def _get_possible_actions(self, position: Position) -> List[Tuple[ActionCard, ...]]:
-        """Get valid action combinations for current position"""
-        
-        possible = []
-        
-        # Stay put
-        possible.append(())
-        possible.append((ActionCard.ATTACK,))
-        possible.append((ActionCard.DEFEND,))
-        possible.append((ActionCard.INSIGHT,))
-        
-        # Advance
-        possible.append((ActionCard.ADVANCE,))
-        possible.append((ActionCard.ADVANCE,ActionCard.ATTACK))
-        possible.append((ActionCard.ADVANCE,ActionCard.DEFEND))
-        possible.append((ActionCard.ADVANCE,ActionCard.INSIGHT))
-        
-        # Retreat
-        if self.game_state.turn_number <= 3:
-            possible.append((ActionCard.RETREAT,))
-            possible.append((ActionCard.RETREAT,ActionCard.ATTACK))
-            possible.append((ActionCard.RETREAT,ActionCard.DEFEND))
-            possible.append((ActionCard.RETREAT,ActionCard.INSIGHT))
-        
-        return possible
-    
-    def _reason_about_option(self, actions: Tuple[ActionCard, ...], 
-                            situation: Dict) -> str:
-        """Generate human-like reasoning for an option"""
-        
-        if not actions:
-            return "Stay put and build balance. Safe but passive."
-        
-        reasoning = []
-        for action in actions:
-            if action == ActionCard.ATTACK:
-                reasoning.append(f"Attack while they have {situation['opponent_health']} health")
-            elif action == ActionCard.DEFEND:
-                reasoning.append("Defend to minimize damage")
-            elif action == ActionCard.ADVANCE:
-                reasoning.append("Close the distance")
-            elif action == ActionCard.RETREAT:
-                reasoning.append("Create space for safety")
-            elif action == ActionCard.INSIGHT:
-                reasoning.append("Learn about opponent's capabilities")
-        
-        return ". ".join(reasoning)
-    
-    def _emotional_response_to_option(self, actions: Tuple[ActionCard, ...]) -> str:
-        """Generate emotional response to option"""
-        
-        personality = self.state.persona.personality
-        
-        responses = {
-            PersonalityTrait.AGGRESSIVE: {
-                ActionCard.ATTACK: "Yes! Time to strike!",
-                ActionCard.DEFEND: "Ugh, playing it safe...",
-                ActionCard.ADVANCE: "Push forward!",
-                ActionCard.RETREAT: "This feels wrong..."
-            },
-            PersonalityTrait.DEFENSIVE: {
-                ActionCard.ATTACK: "Risky, but might be necessary",
-                ActionCard.DEFEND: "Good, protect myself",
-                ActionCard.ADVANCE: "Nervous about getting closer",
-                ActionCard.RETREAT: "Smart move, stay safe"
-            },
-            PersonalityTrait.UNPREDICTABLE: {
-                ActionCard.ATTACK: "They won't expect this!",
-                ActionCard.DEFEND: "Let's confuse them",
-                ActionCard.ADVANCE: "Chaos time!",
-                ActionCard.RETREAT: "Strategic misdirection"
-            }
-        }
-        
-        if not actions:
-            return "Patience... patience..."
-        
-        response = responses.get(personality, {})
-        return response.get(actions[0], "Interesting choice...")
-    
-    def _calculate_risk(self, actions: Tuple[ActionCard, ...], 
-                       situation: Dict) -> float:
-        """Calculate perceived risk of action"""
-        
-        risk = 0.0
-        
-        if ActionCard.ATTACK in actions:
-            # Risk of being countered
-            risk += 0.4
-            if situation["opponent_resources"]["balance"] >= 2:
-                risk += 0.3
-        
-        if ActionCard.ADVANCE in actions:
-            # Risk of getting too close
-            risk += 0.2
-            if self.state.health == 1:
-                risk += 0.4
-        
-        if ActionCard.INSIGHT in actions:
-            # Risk of being attacked while learning
-            risk += 0.6 if situation["position"] != "Apart" else 0.1
-        
-        return min(risk, 1.0)
-    
-    def _calculate_enjoyment(self, actions: Tuple[ActionCard, ...]) -> float:
-        """Calculate expected enjoyment from action"""
-        
-        enjoyment = 0.5  # Base enjoyment
-        
-        # Personality-based enjoyment
-        if self.state.persona.personality == PersonalityTrait.AGGRESSIVE:
-            if ActionCard.ATTACK in actions:
-                enjoyment += 0.3
-            if ActionCard.ADVANCE in actions:
-                enjoyment += 0.2
-        elif self.state.persona.personality == PersonalityTrait.DEFENSIVE:
-            if ActionCard.DEFEND in actions:
-                enjoyment += 0.3
-        elif self.state.persona.personality == PersonalityTrait.UNPREDICTABLE:
-            # Enjoys variety
-            if len(self.state.strategy_log) > 0:
-                last_action = self.state.strategy_log[-1].get("actions")
-                if last_action != actions:
-                    enjoyment += 0.4
-        
-        return min(enjoyment, 1.0)
-    
-    def _score_option(self, option: Dict) -> float:
-        """Score option based on personality and situation"""
-        
-        # Base score from risk/reward
-        score = 1.0 - option["perceived_risk"] * (1.0 - self.state.persona.risk_tolerance)
-        
-        # Add enjoyment factor
-        score += option["expected_enjoyment"] * 0.3
-        
-        # Personality modifiers
-        if self.state.persona.personality == PersonalityTrait.CALCULATED:
-            # Focus on optimal play
-            score *= 1.0 if option["perceived_risk"] < 0.3 else 0.7
-        elif self.state.persona.personality == PersonalityTrait.HONORABLE:
-            # Avoid retreat after turn 3
-            if ActionCard.RETREAT in option["actions"] and self.game_state.turn_number > 3:
-                score *= 0.1
-        
-        # Confidence modifier
-        score *= (0.5 + self.state.persona.confidence_level * 0.5)
-        
-        return score
-    
-    def make_decision(self, options: List[Dict]) -> Dict[str, Any]:
-        """
-        Make final decision with human-like deliberation
-        Pattern: Self-consistency (page 342)
-        """
 
-        # Pick top option but with some personality-based variation
-        if self.state.persona.personality == PersonalityTrait.UNPREDICTABLE:
-            # Sometimes pick suboptimal for surprise
-            if random.random() < 0.3 and len(options) > 1:
-                chosen = options[1]  # Pick second best
-                deliberation = "Let's keep them guessing..."
-            else:
-                chosen = options[0]
-                deliberation = "This seems right, but who knows?"
-        else:
-            chosen = options[0]
-            deliberation = self._generate_deliberation(chosen, options)
-        
-        # Record decision in strategy log
-        self.state.strategy_log.append({
-            "turn": self.game_state.turn_number,
-            "actions": chosen["actions"],
-            "reasoning": chosen["reasoning"],
-            "emotion": self.state.persona.emotional_state,
-            "confidence": self.state.persona.confidence_level
-        })
-        
-        # Calculate tension and enjoyment for this decision
-        tension = chosen["perceived_risk"] * 0.5 + (1.0 - self.state.health / 3.0) * 0.5
-        enjoyment = chosen["expected_enjoyment"]
-        
-        # Check for hard choice (multiple good options)
-        choice_difficulty = 0.0
-        if len(options) > 1:
-            score_difference = options[0]["score"] - options[1]["score"]
-            if score_difference < 0.1:
-                choice_difficulty = 0.8
-                deliberation += " This was a really tough choice!"
-        
-        return {
-            "actions": chosen["actions"],
-            "technique": self._select_technique(chosen["actions"]),
-            "reasoning": chosen["reasoning"],
-            "deliberation": deliberation,
-            "tension": tension,
-            "enjoyment": enjoyment,
-            "choice_difficulty": choice_difficulty
-        }
-    
-    def _generate_deliberation(self, chosen: Dict, options: List[Dict]) -> str:
-        """Generate human-like deliberation text"""
-        
-        if self.state.persona.emotional_state == "desperate":
-            return "No choice... I have to do this or I'm done!"
-        elif self.state.persona.emotional_state == "excited":
-            return "This is it! Time to finish this!"
-        elif len(options) > 1 and options[0]["score"] - options[1]["score"] < 0.2:
-            return "Tough call, but I think this is the right move..."
-        else:
-            return f"Given the situation, {chosen['emotional_response']}"
-    
-    def _select_technique(self, actions: Tuple[ActionCard, ...]) -> str:
-        """Select appropriate technique card for the action"""
-        
-        if not self.state.technique_cards:
-            return None
-        
-        # Simple technique selection based on action
-        if ActionCard.ATTACK in actions:
-            if self.state.momentum >= 2:
-                return "Tsubame Gaeshi"
-            else:
-                return self.state.technique_cards[0]
-        elif ActionCard.DEFEND in actions:
-            if self.state.balance >= 2:
-                return "Mizu no Kokoro"
-            else:
-                return self.state.technique_cards[0]
-        
-        return self.state.technique_cards[0]
+        # Clamp confidence
+        self.state.persona.confidence_level = max(0.1, min(1.0,
+                                                  self.state.persona.confidence_level))
 
 # ==================== GAME MASTER AGENT ====================
 
@@ -1016,7 +722,11 @@ class GameMasterAgent:
         self.player_agents[PlayerRole.DEFENDER] = BushidoPlayerAgent(
             self.game_state.defender, self.game_state
         )
-        
+
+        # Initialize sessions asynchronously
+        await self.player_agents[PlayerRole.CHALLENGER].initialize_session()
+        await self.player_agents[PlayerRole.DEFENDER].initialize_session()
+
         self.logger.info(f"Game {self.game_state.game_id} initialized")
         return self.game_state
     
@@ -1059,11 +769,21 @@ class GameMasterAgent:
         
         # Resolve turn
         turn_result = self._resolve_turn(challenger_decision, defender_decision)
-        
+
         # Update game state
         self._update_game_state(turn_result)
-        
-        # Log turn
+
+        # Log turn results
+        self.logger.info(f"Turn {self.game_state.turn_number} Results:")
+        self.logger.info(f"  Position: {turn_result['position_before']} -> {turn_result['position_after']}")
+        self.logger.info(f"  Challenger actions: {[a.value for a in turn_result['challenger_actions']]}")
+        self.logger.info(f"  Defender actions: {[a.value for a in turn_result['defender_actions']]}")
+        self.logger.info(f"  Damage dealt - Challenger took: {turn_result['damage_dealt']['challenger']}, Defender took: {turn_result['damage_dealt']['defender']}")
+        self.logger.info(f"  Health - Challenger: {self.game_state.challenger.health}, Defender: {self.game_state.defender.health}")
+        if 'honor_violation' in turn_result:
+            self.logger.warning(f"  HONOR VIOLATION: {turn_result['honor_violation']}")
+
+        # Store turn in history
         self.game_state.turn_history.append(turn_result)
         
         # Record psychological metrics
