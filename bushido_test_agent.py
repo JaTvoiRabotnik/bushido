@@ -15,19 +15,29 @@ import logging
 import random
 import re
 import os
-from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional, Any, Tuple
-from enum import Enum
 from datetime import datetime
-import uuid
 from pathlib import Path
+from uuid import uuid4
 
 from google.adk.agents import Agent
 from google.adk.runners import InMemoryRunner
 from google.adk.tools import FunctionTool
 from google.genai import types
 import vertexai
-from vertexai.generative_models import GenerativeModel
+
+# Import from refactored modules
+from models import (
+    Position, ActionCard, PlayerRole, PersonalityTrait,
+    PlayerPersona, PlayerState, GameState
+)
+from constants import TECHNIQUE_CARDS, MAX_TURNS, HONOR_RESTRICTION_TURN
+from resource_manager import PlayerResourceManager
+from rules_engine import GameRulesEngine
+from metrics_tracker import MetricsTracker
+
+
+# ==================== LOGGING CONFIGURATION ====================
 
 # Configure logging to file with INFO level (only INFO, WARNING, ERROR)
 logging.basicConfig(
@@ -43,20 +53,17 @@ logging.getLogger('google_adk').setLevel(logging.WARNING)
 logging.getLogger('google.auth').setLevel(logging.WARNING)
 logging.getLogger('asyncio').setLevel(logging.WARNING)
 
-# Environment configuration
+
+# ==================== ENVIRONMENT CONFIGURATION ====================
+
 PROJECT_ID = os.environ.get("GOOGLE_CLOUD_PROJECT", "")
 LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
-VERTEX_AI_INITIALIZED = False
+
 
 # ==================== INITIALIZATION ====================
 
-def initialize_vertex_ai():
+def initialize_vertex_ai() -> bool:
     """Initialize Vertex AI with error handling"""
-    global VERTEX_AI_INITIALIZED
-
-    if VERTEX_AI_INITIALIZED:
-        return True
-
     if not PROJECT_ID:
         logger.warning("GOOGLE_CLOUD_PROJECT not set. Set environment variable for production use.")
         logger.warning("Running in test mode without Vertex AI.")
@@ -64,7 +71,6 @@ def initialize_vertex_ai():
 
     try:
         vertexai.init(project=PROJECT_ID, location=LOCATION)
-        VERTEX_AI_INITIALIZED = True
         logger.info(f"Vertex AI initialized: project={PROJECT_ID}, location={LOCATION}")
         return True
     except Exception as e:
@@ -72,171 +78,10 @@ def initialize_vertex_ai():
         logger.warning("Running in test mode without Vertex AI.")
         return False
 
-# ==================== GAME CONSTANTS ====================
-
-class Position(Enum):
-    APART = "Apart"
-    SWORD = "Sword Range"
-    CLOSE = "Close Combat"
-
-class ActionCard(Enum):
-    ATTACK = "Attack"
-    DEFEND = "Defend"
-    ADVANCE = "Advance"
-    RETREAT = "Retreat"
-    INSIGHT = "Insight"
-
-class PlayerRole(Enum):
-    CHALLENGER = "Challenger"
-    DEFENDER = "Defender"
-
-# Technique cards as defined in the rules
-TECHNIQUE_CARDS = {
-    "Tsubame Gaeshi": {
-        "type": "Aggressive Momentum",
-        "description": "Lightning-fast double strike",
-        "attack_effect": "+1 Attack per Momentum",
-        "evade_cost": "3 Momentum",
-        "special": "At Close Combat, bypass defense with 3 Momentum"
-    },
-    "Mizu no Kokoro": {
-        "type": "Defensive Balance",
-        "description": "Perfect defensive stillness",
-        "defense_effect": "+1 Defense per Balance",
-        "evade_cost": "3 Balance",
-        "special": "At Sword Range, bypass evasion with 3 Balance"
-    },
-    "Kuzushi": {
-        "type": "Aggressive Disruption",
-        "description": "Disrupts opponent's stance",
-        "attack_effect": "+2 Attack when Advancing",
-        "evade_cost": "3 Balance",
-        "special": "Steal 1 Balance on hit"
-    },
-    "Ai-Uchi": {
-        "type": "Sacrificial",
-        "description": "Mutual destruction technique",
-        "attack_effect": "Ignore all Defense and Evades",
-        "evade_cost": "Cannot evade",
-        "special": "Cannot defend when using"
-    },
-    "Irimi": {
-        "type": "Close Combat Specialist",
-        "description": "Step inside opponent's reach",
-        "movement_effect": "+2 Balance when Advancing to Close",
-        "evade_cost": "2 Momentum at Close Combat",
-        "special": "Halve opponent's Momentum bonuses at Close"
-    },
-    "Ma-ai": {
-        "type": "Range Control",
-        "description": "Masterful spacing control",
-        "defense_effect": "+2 Defense when Retreating",
-        "evade_cost": "1 Balance at Sword Range or further",
-        "special": "Lose only 1 Momentum when Retreating"
-    },
-    "Mushin": {
-        "type": "Zen Emptiness",
-        "description": "Power through emptiness",
-        "attack_defense_effect": "+3 if 0 Momentum AND 0 Balance",
-        "evade_cost": "Free if 0 Momentum and 0 Balance",
-        "special": "Can reset both resources to 0"
-    },
-    "Nagashi": {
-        "type": "Counter-fighter",
-        "description": "Redirect opponent's force",
-        "defense_effect": "+1 Defense, gain Momentum from damage prevented",
-        "evade_cost": "2 Momentum to evade and gain 1 Balance",
-        "special": "Counter for 2 damage if opponent attacks with 5+"
-    }
-}
-
-# ==================== PLAYER PERSONAS ====================
-
-class PersonalityTrait(Enum):
-    """Based on book's emphasis on persona-based agents (page 372)"""
-    AGGRESSIVE = "Aggressive - Prefers offensive tactics"
-    DEFENSIVE = "Defensive - Prioritizes survival"
-    ADAPTIVE = "Adaptive - Changes strategy based on opponent"
-    CALCULATED = "Calculated - Focuses on optimal plays"
-    UNPREDICTABLE = "Unpredictable - Varies tactics to confuse"
-    HONORABLE = "Honorable - Values style over pure victory"
-
-@dataclass
-class PlayerPersona:
-    """Human-like persona for believable simulation"""
-    name: str
-    personality: PersonalityTrait
-    risk_tolerance: float  # 0.0 (cautious) to 1.0 (reckless)
-    learning_rate: float  # How quickly they adapt
-    emotional_state: str = "calm"
-    confidence_level: float = 0.5
-    
-    # Psychological factors
-    tension_threshold: float = 0.7  # When they feel pressure
-    enjoyment_factors: List[str] = field(default_factory=list)
-    
-    def describe(self) -> str:
-        """Generate a human-like internal monologue"""
-        return f"{self.name} ({self.personality.value}): {self.emotional_state}, confidence: {self.confidence_level:.2f}"
-
-# ==================== GAME STATE ====================
-
-@dataclass
-class PlayerState:
-    """Complete state of a player"""
-    role: PlayerRole
-    persona: PlayerPersona
-    health: int = 3
-    momentum: int = 0
-    balance: int = 0
-    
-    # Hidden attributes (sum to 6)
-    speed: int = 2
-    strength: int = 2
-    defense: int = 2
-    
-    # Cards and techniques
-    action_cards: List[ActionCard] = field(default_factory=list)
-    technique_cards: List[str] = field(default_factory=list)
-    current_technique: Optional[str] = None
-    
-    # Knowledge about opponent
-    known_attributes: Dict[str, Optional[int]] = field(default_factory=dict)
-    
-    # Strategy memory
-    strategy_log: List[Dict[str, Any]] = field(default_factory=list)
-    
-    def __post_init__(self):
-        if not self.action_cards:
-            self.action_cards = list(ActionCard)
-        if not self.known_attributes:
-            self.known_attributes = {"speed": None, "strength": None, "defense": None}
-
-@dataclass
-class GameState:
-    """Complete game state"""
-    game_id: str
-    turn_number: int = 0
-    position: Position = Position.APART
-    
-    # Players
-    challenger: PlayerState = None
-    defender: PlayerState = None
-    
-    # History for analysis
-    turn_history: List[Dict[str, Any]] = field(default_factory=list)
-    
-    # Metrics for evaluation
-    tension_levels: List[float] = field(default_factory=list)
-    choice_difficulty: List[float] = field(default_factory=list)
-    enjoyment_scores: List[float] = field(default_factory=list)
-    
-    def get_player(self, role: PlayerRole) -> PlayerState:
-        return self.challenger if role == PlayerRole.CHALLENGER else self.defender
 
 # ==================== TOOL FUNCTIONS ====================
 
-def create_player_tools(player_state: PlayerState, game_state: GameState):
+def create_player_tools(player_state: PlayerState, game_state: GameState) -> List[FunctionTool]:
     """Create tool functions with access to player and game state via closures"""
 
     def get_game_situation() -> str:
@@ -302,7 +147,7 @@ BASIC ACTIONS:
 MOVEMENT:
 - Stay (gain 1 Balance)
 - Advance (move closer, gain Momentum, lose Balance)
-- Retreat{"" if turn <= 3 else " (FORBIDDEN after turn 3 - honor violation!)"}
+- Retreat{"" if turn <= HONOR_RESTRICTION_TURN else " (FORBIDDEN after turn 3 - honor violation!)"}
 
 COMBINATION PLAYS:
 
@@ -312,9 +157,9 @@ COMBINATION PLAYS:
 - Advance + Attack (aggressive rush)
 - Advance + Defend (cautious advance)
 - Advance + Insight (probe opponent)
-- Retreat + Attack (hit and run){"" if turn <= 3 else " (ONLY if turn <= 3)"}
-- Retreat + Defend (full defense){"" if turn <= 3 else " (ONLY if turn <= 3)"}
-- Retreat + Insight (fall back and observe){"" if turn <= 3 else " (ONLY if turn <= 3)"}
+- Retreat + Attack (hit and run){"" if turn <= HONOR_RESTRICTION_TURN else " (ONLY if turn <= 3)"}
+- Retreat + Defend (full defense){"" if turn <= HONOR_RESTRICTION_TURN else " (ONLY if turn <= 3)"}
+- Retreat + Insight (fall back and observe){"" if turn <= HONOR_RESTRICTION_TURN else " (ONLY if turn <= 3)"}
 
 RESOURCES:
 - Momentum helps with aggressive techniques
@@ -356,6 +201,7 @@ Effects:
         FunctionTool(get_available_actions),
         FunctionTool(get_technique_details)
     ]
+
 
 # ==================== PLAYER AGENT ====================
 
@@ -458,10 +304,10 @@ REASONING: They're getting aggressive, better protect myself and build balance.
 """,
             tools=tools
         )
-    
+
     def _generate_persona_instructions(self) -> str:
         """Generate personality-specific playing instructions"""
-        
+
         instructions = {
             PersonalityTrait.AGGRESSIVE: """
 Focus on:
@@ -506,7 +352,7 @@ Focus on:
 - Respecting worthy opponents
 """
         }
-        
+
         return instructions.get(self.state.persona.personality, "")
 
     async def get_decision_from_agent(self) -> Dict[str, Any]:
@@ -577,7 +423,7 @@ Think through your options carefully, express your thoughts, and then provide yo
             "tension_level": decision["tension"],
             "opponent_health": opponent.health
         }
-        self._update_emotional_state(observations)
+        MetricsTracker.update_emotional_state(self.state, observations)
 
         return decision
 
@@ -620,59 +466,19 @@ Think through your options carefully, express your thoughts, and then provide yo
         # Convert actions to tuple
         actions_tuple = tuple(actions)
 
-        # Calculate metrics for this decision
-        tension = self._calculate_tension()
-        enjoyment = self._calculate_enjoyment(actions_tuple)
-        choice_difficulty = 0.5  # Could be enhanced with more analysis
+        # Calculate metrics for this decision using MetricsTracker
+        metrics = MetricsTracker.calculate_decision_metrics(
+            self.state, self.game_state, actions_tuple
+        )
 
         return {
             "actions": actions_tuple,
             "technique": technique,
             "reasoning": reasoning,
             "deliberation": response,  # Full reasoning response
-            "tension": tension,
-            "enjoyment": enjoyment,
-            "choice_difficulty": choice_difficulty
+            **metrics
         }
 
-    def _calculate_tension(self) -> float:
-        """Calculate current tension level"""
-        health_pressure = 1.0 - (self.state.health / 3.0)
-        turn_pressure = min(self.game_state.turn_number / 5.0, 1.0)
-        return (health_pressure + turn_pressure) / 2
-
-    def _calculate_enjoyment(self, actions: Tuple[ActionCard, ...]) -> float:
-        """Calculate expected enjoyment from action"""
-        enjoyment = 0.5
-
-        if self.state.persona.personality == PersonalityTrait.AGGRESSIVE:
-            if ActionCard.ATTACK in actions:
-                enjoyment += 0.3
-        elif self.state.persona.personality == PersonalityTrait.DEFENSIVE:
-            if ActionCard.DEFEND in actions:
-                enjoyment += 0.3
-
-        return min(enjoyment, 1.0)
-
-    def _update_emotional_state(self, observations: Dict):
-        """Update emotional state based on game situation"""
-        tension = observations["tension_level"]
-
-        if self.state.health == 1:
-            self.state.persona.emotional_state = "desperate"
-            self.state.persona.confidence_level *= 0.7
-        elif tension > self.state.persona.tension_threshold:
-            self.state.persona.emotional_state = "tense"
-            self.state.persona.confidence_level *= 0.9
-        elif observations["opponent_health"] == 1:
-            self.state.persona.emotional_state = "excited"
-            self.state.persona.confidence_level *= 1.2
-        else:
-            self.state.persona.emotional_state = "focused"
-
-        # Clamp confidence
-        self.state.persona.confidence_level = max(0.1, min(1.0,
-                                                  self.state.persona.confidence_level))
 
 # ==================== GAME MASTER AGENT ====================
 
@@ -681,21 +487,21 @@ class GameMasterAgent:
     Root agent that manages game flow and rules
     Pattern: Orchestrator (implied throughout book's multi-agent examples)
     """
-    
+
     def __init__(self, simulation_id: str):
         self.simulation_id = simulation_id
         self.game_state = None
         self.player_agents = {}
         self.logger = logging.getLogger(f"GameMaster_{simulation_id}")
-        
+
     async def initialize_game(self, personas: Tuple[PlayerPersona, PlayerPersona]) -> GameState:
         """Initialize a new game with given personas"""
-        
+
         self.game_state = GameState(
-            game_id=str(uuid.uuid4()),
+            game_id=str(uuid4()),
             position=Position.APART
         )
-        
+
         # Initialize challenger
         self.game_state.challenger = PlayerState(
             role=PlayerRole.CHALLENGER,
@@ -703,7 +509,7 @@ class GameMasterAgent:
             momentum=1,  # Challenger starts with momentum
             balance=0
         )
-        
+
         # Initialize defender
         self.game_state.defender = PlayerState(
             role=PlayerRole.DEFENDER,
@@ -711,10 +517,10 @@ class GameMasterAgent:
             momentum=0,
             balance=1  # Defender starts with balance
         )
-        
+
         # Assign technique cards
         self._assign_techniques()
-        
+
         # Create player agents
         self.player_agents[PlayerRole.CHALLENGER] = BushidoPlayerAgent(
             self.game_state.challenger, self.game_state
@@ -729,15 +535,15 @@ class GameMasterAgent:
 
         self.logger.info(f"Game {self.game_state.game_id} initialized")
         return self.game_state
-    
+
     def _assign_techniques(self):
         """Assign technique cards to players"""
         available_techniques = list(TECHNIQUE_CARDS.keys())
         random.shuffle(available_techniques)
-        
+
         # Remove one random card
         available_techniques.pop()
-        
+
         # Draft process as per rules
         self.game_state.challenger.technique_cards = [
             available_techniques[0],
@@ -747,13 +553,13 @@ class GameMasterAgent:
             available_techniques[1],
             available_techniques[3]
         ]
-    
+
     async def run_turn(self) -> Dict[str, Any]:
         """Execute a single game turn"""
-        
+
         self.game_state.turn_number += 1
         self.logger.info(f"Starting turn {self.game_state.turn_number}")
-        
+
         # Get decisions from both players in parallel
         # Pattern: Parallelization (Chapter 3, page 32)
         challenger_task = asyncio.create_task(
@@ -762,16 +568,32 @@ class GameMasterAgent:
         defender_task = asyncio.create_task(
             self._get_player_decision(PlayerRole.DEFENDER)
         )
-        
+
         challenger_decision, defender_decision = await asyncio.gather(
             challenger_task, defender_task
         )
-        
-        # Resolve turn
-        turn_result = self._resolve_turn(challenger_decision, defender_decision)
 
-        # Update game state
-        self._update_game_state(turn_result)
+        # Resolve turn using GameRulesEngine
+        turn_result, new_position = GameRulesEngine.resolve_turn(
+            self.game_state.turn_number,
+            self.game_state.position,
+            self.game_state.challenger,
+            self.game_state.defender,
+            challenger_decision,
+            defender_decision
+        )
+
+        # Update position
+        self.game_state.position = new_position
+
+        # Update player resources using PlayerResourceManager
+        PlayerResourceManager.update_both_players(
+            self.game_state.challenger,
+            self.game_state.defender,
+            challenger_decision["actions"],
+            defender_decision["actions"],
+            turn_result["damage_dealt"]
+        )
 
         # Log turn results
         self.logger.info(f"Turn {self.game_state.turn_number} Results:")
@@ -785,21 +607,16 @@ class GameMasterAgent:
 
         # Store turn in history
         self.game_state.turn_history.append(turn_result)
-        
-        # Record psychological metrics
-        self.game_state.tension_levels.append(
-            (challenger_decision["tension"] + defender_decision["tension"]) / 2
+
+        # Record psychological metrics using MetricsTracker
+        MetricsTracker.record_turn_metrics(
+            self.game_state,
+            challenger_decision,
+            defender_decision
         )
-        self.game_state.choice_difficulty.append(
-            (challenger_decision["choice_difficulty"] + 
-             defender_decision["choice_difficulty"]) / 2
-        )
-        self.game_state.enjoyment_scores.append(
-            (challenger_decision["enjoyment"] + defender_decision["enjoyment"]) / 2
-        )
-        
+
         return turn_result
-    
+
     async def _get_player_decision(self, role: PlayerRole) -> Dict[str, Any]:
         """Get decision from player agent using LLM reasoning"""
 
@@ -813,197 +630,16 @@ class GameMasterAgent:
         self.logger.info(f"  Emotion: {agent.state.persona.emotional_state}")
 
         return decision
-    
-    def _resolve_turn(self, challenger_decision: Dict, 
-                     defender_decision: Dict) -> Dict[str, Any]:
-        """Resolve turn according to game rules"""
-        
-        result = {
-            "turn": self.game_state.turn_number,
-            "challenger_actions": challenger_decision["actions"],
-            "defender_actions": defender_decision["actions"],
-            "challenger_technique": challenger_decision["technique"],
-            "defender_technique": defender_decision["technique"],
-            "position_before": self.game_state.position.value,
-            "damage_dealt": {"challenger": 0, "defender": 0}
-        }
-        
-        # Resolve position changes
-        new_position = self._resolve_position(
-            challenger_decision["actions"],
-            defender_decision["actions"]
-        )
-        result["position_after"] = new_position.value
-        self.game_state.position = new_position
-        
-        # Resolve combat if applicable
-        if new_position != Position.APART:
-            damage = self._resolve_combat(
-                challenger_decision,
-                defender_decision,
-                new_position
-            )
-            result["damage_dealt"] = damage
-        
-        # Check for honor violation
-        if self.game_state.turn_number > 3:
-            if ActionCard.RETREAT in challenger_decision["actions"]:
-                result["honor_violation"] = "Challenger"
-            if ActionCard.RETREAT in defender_decision["actions"]:
-                result["honor_violation"] = "Defender"
-        
-        return result
-    
-    def _resolve_position(self, challenger_actions: Tuple[ActionCard, ...],
-                         defender_actions: Tuple[ActionCard, ...]) -> Position:
-        """Resolve position changes based on movements"""
-        
-        current = self.game_state.position
-        
-        challenger_move = None
-        defender_move = None
-        
-        for action in challenger_actions:
-            if action in [ActionCard.ADVANCE, ActionCard.RETREAT]:
-                challenger_move = action
-                break
-        
-        for action in defender_actions:
-            if action in [ActionCard.ADVANCE, ActionCard.RETREAT]:
-                defender_move = action
-                break
-        
-        # Apply position logic from rules
-        if current == Position.APART:
-            if challenger_move == ActionCard.ADVANCE or defender_move == ActionCard.ADVANCE:
-                if challenger_move != ActionCard.RETREAT and defender_move != ActionCard.RETREAT:
-                    return Position.SWORD
-        elif current == Position.SWORD:
-            if challenger_move == ActionCard.ADVANCE and defender_move == ActionCard.ADVANCE:
-                return Position.CLOSE
-            elif challenger_move == ActionCard.ADVANCE and defender_move != ActionCard.RETREAT:
-                return Position.CLOSE
-            elif defender_move == ActionCard.ADVANCE and challenger_move != ActionCard.RETREAT:
-                return Position.CLOSE
-            elif challenger_move == ActionCard.RETREAT and defender_move == ActionCard.RETREAT:
-                return Position.APART
-            elif challenger_move == ActionCard.RETREAT or defender_move == ActionCard.RETREAT:
-                return Position.APART
-        elif current == Position.CLOSE:
-            if challenger_move == ActionCard.RETREAT and defender_move == ActionCard.RETREAT:
-                return Position.APART
-            elif challenger_move == ActionCard.RETREAT and defender_move != ActionCard.ADVANCE:
-                return Position.SWORD
-            elif defender_move == ActionCard.RETREAT and challenger_move != ActionCard.ADVANCE:
-                return Position.SWORD
-        
-        return current
-    
-    def _resolve_combat(self, challenger_decision: Dict,
-                       defender_decision: Dict,
-                       position: Position) -> Dict[str, int]:
-        """Resolve combat exchanges"""
-        
-        damage = {"challenger": 0, "defender": 0}
-        
-        # Check for attacks
-        challenger_attacking = ActionCard.ATTACK in challenger_decision["actions"]
-        defender_attacking = ActionCard.ATTACK in defender_decision["actions"]
-        
-        if not (challenger_attacking or defender_attacking):
-            return damage
-        
-        # Calculate attack and defense totals
-        if challenger_attacking:
-            attack_total = self.game_state.challenger.strength
-            if ActionCard.ADVANCE in challenger_decision["actions"]:
-                attack_total += 1
-            if position == Position.CLOSE:
-                attack_total += 1
-            
-            defense_total = 0
-            if ActionCard.DEFEND in defender_decision["actions"]:
-                defense_total = self.game_state.defender.defense
-                if ActionCard.RETREAT in defender_decision["actions"]:
-                    defense_total += 1
-            
-            damage["defender"] = max(0, attack_total - defense_total)
-        
-        if defender_attacking:
-            attack_total = self.game_state.defender.strength
-            if ActionCard.ADVANCE in defender_decision["actions"]:
-                attack_total += 1
-            if position == Position.CLOSE:
-                attack_total += 1
-            
-            defense_total = 0
-            if ActionCard.DEFEND in challenger_decision["actions"]:
-                defense_total = self.game_state.challenger.defense
-                if ActionCard.RETREAT in challenger_decision["actions"]:
-                    defense_total += 1
-            
-            damage["challenger"] = max(0, attack_total - defense_total)
-        
-        return damage
-    
-    def _update_game_state(self, turn_result: Dict):
-        """Update game state after turn resolution"""
-        
-        # Apply damage
-        self.game_state.challenger.health -= turn_result["damage_dealt"]["challenger"]
-        self.game_state.defender.health -= turn_result["damage_dealt"]["defender"]
-        
-        # Update resources based on actions
-        for action in turn_result["challenger_actions"]:
-            if action == ActionCard.ADVANCE:
-                self.game_state.challenger.momentum = min(3, 
-                    self.game_state.challenger.momentum + 1)
-                self.game_state.challenger.balance = max(0,
-                    self.game_state.challenger.balance - 1)
-            elif action == ActionCard.RETREAT:
-                self.game_state.challenger.momentum = max(0,
-                    self.game_state.challenger.momentum - 1)
-        
-        if not turn_result["challenger_actions"]:
-            self.game_state.challenger.balance = min(3,
-                self.game_state.challenger.balance + 1)
-        
-        # Same for defender
-        for action in turn_result["defender_actions"]:
-            if action == ActionCard.ADVANCE:
-                self.game_state.defender.momentum = min(3,
-                    self.game_state.defender.momentum + 1)
-                self.game_state.defender.balance = max(0,
-                    self.game_state.defender.balance - 1)
-            elif action == ActionCard.RETREAT:
-                self.game_state.defender.momentum = max(0,
-                    self.game_state.defender.momentum - 1)
-        
-        if not turn_result["defender_actions"]:
-            self.game_state.defender.balance = min(3,
-                self.game_state.defender.balance + 1)
-    
+
     def check_victory(self) -> Optional[str]:
-        """Check for victory conditions"""
-        
-        if self.game_state.challenger.health <= 0 and self.game_state.defender.health <= 0:
-            return "DRAW"
-        elif self.game_state.challenger.health <= 0:
-            return "DEFENDER"
-        elif self.game_state.defender.health <= 0:
-            return "CHALLENGER"
-        
-        # Check for honor violation
-        if self.game_state.turn_history:
-            last_turn = self.game_state.turn_history[-1]
-            if "honor_violation" in last_turn:
-                if last_turn["honor_violation"] == "Challenger":
-                    return "DEFENDER"
-                elif last_turn["honor_violation"] == "Defender":
-                    return "CHALLENGER"
-        
-        return None
-    
+        """Check for victory conditions using GameRulesEngine"""
+        last_turn = self.game_state.turn_history[-1] if self.game_state.turn_history else None
+        return GameRulesEngine.check_victory(
+            self.game_state.challenger,
+            self.game_state.defender,
+            last_turn
+        )
+
     async def complete_game(self) -> Dict[str, Any]:
         """Complete the game and generate summary"""
 
@@ -1037,6 +673,7 @@ class GameMasterAgent:
         except Exception as e:
             logger.warning(f"Error during cleanup: {e}")
 
+
 # ==================== SIMULATION ORCHESTRATOR ====================
 
 class SimulationOrchestrator:
@@ -1044,92 +681,86 @@ class SimulationOrchestrator:
     Main orchestrator for running multiple game simulations
     Pattern: Parallelization (Chapter 3, page 32)
     """
-    
+
     def __init__(self):
         self.simulations = []
         self.results = []
-        
+
     async def run_simulations(self, num_simulations: int) -> List[Dict[str, Any]]:
         """Run multiple game simulations in parallel"""
-        
+
         logger.info(f"Starting {num_simulations} simulations")
-        
+
         # Create diverse persona pairs
         persona_pairs = self._generate_persona_pairs(num_simulations)
-        
+
         # Run simulations in parallel (batched for resource management)
         # Pattern: Resource-Aware Optimization (Chapter 16, page 225)
         batch_size = 5  # Run 5 games at a time
-        
+
         for i in range(0, num_simulations, batch_size):
             batch_end = min(i + batch_size, num_simulations)
             batch_tasks = []
-            
+
             for j in range(i, batch_end):
                 task = asyncio.create_task(
                     self._run_single_simulation(j, persona_pairs[j])
                 )
                 batch_tasks.append(task)
-            
+
             batch_results = await asyncio.gather(*batch_tasks)
             self.results.extend(batch_results)
-            
+
             logger.info(f"Completed {batch_end}/{num_simulations} simulations")
-        
+
         return self.results
-    
+
     def _generate_persona_pairs(self, count: int) -> List[Tuple[PlayerPersona, PlayerPersona]]:
         """Generate diverse persona pairs for testing"""
         pairs = []
         personalities = list(PersonalityTrait)
-        
+
         for i in range(count):
             # Create diverse matchups
             p1_personality = random.choice(personalities)
             p2_personality = random.choice(personalities)
-            
+
             p1 = PlayerPersona(
                 name=f"Player_{i}_A",
                 personality=p1_personality,
                 risk_tolerance=random.uniform(0.2, 0.9),
-                learning_rate=random.uniform(0.1, 0.5),
-                tension_threshold=random.uniform(0.5, 0.9),
-                enjoyment_factors=["close_matches", "successful_reads", "dramatic_moments"]
+                tension_threshold=random.uniform(0.5, 0.9)
             )
-            
+
             p2 = PlayerPersona(
                 name=f"Player_{i}_B",
                 personality=p2_personality,
                 risk_tolerance=random.uniform(0.2, 0.9),
-                learning_rate=random.uniform(0.1, 0.5),
-                tension_threshold=random.uniform(0.5, 0.9),
-                enjoyment_factors=["outsmarting_opponent", "perfect_defense", "comeback_victories"]
+                tension_threshold=random.uniform(0.5, 0.9)
             )
-            
+
             pairs.append((p1, p2))
-        
+
         return pairs
-    
-    async def _run_single_simulation(self, sim_id: int, 
+
+    async def _run_single_simulation(self, sim_id: int,
                                     personas: Tuple[PlayerPersona, PlayerPersona]) -> Dict[str, Any]:
         """Run a single game simulation"""
-        
+
         logger.info(f"Simulation {sim_id}: {personas[0].name} vs {personas[1].name}")
-        
+
         gm = GameMasterAgent(f"sim_{sim_id}")
         await gm.initialize_game(personas)
-        
+
         # Run game until completion
-        max_turns = 10  # Safety limit
-        
-        for turn in range(max_turns):
+        for turn in range(MAX_TURNS):
             turn_result = await gm.run_turn()
-            
+
             winner = gm.check_victory()
             if winner:
                 logger.info(f"Simulation {sim_id} completed: {winner} wins!")
                 break
-        
+
         # Get game summary
         summary = await gm.complete_game()
         summary["simulation_id"] = sim_id
@@ -1137,27 +768,27 @@ class SimulationOrchestrator:
             "challenger": personas[0].personality.value,
             "defender": personas[1].personality.value
         }
-        
+
         return summary
-    
+
     async def generate_evaluation_report(self) -> Dict[str, Any]:
         """
         Generate comprehensive evaluation report
         Pattern: Self-refinement (Chapter 8, page 246)
         """
-        
+
         if not self.results:
             return {"error": "No simulation results available"}
-        
+
         # Analyze game balance
         balance_metrics = self._analyze_balance()
-        
+
         # Analyze engagement metrics
         engagement_metrics = self._analyze_engagement()
-        
+
         # Analyze personality matchups
         matchup_analysis = self._analyze_matchups()
-        
+
         report = {
             "total_simulations": len(self.results),
             "balance_metrics": balance_metrics,
@@ -1168,46 +799,46 @@ class SimulationOrchestrator:
             ),
             "timestamp": datetime.now().isoformat()
         }
-        
+
         return report
-    
+
     def _analyze_balance(self) -> Dict[str, Any]:
         """Analyze game balance from results"""
-        
+
         challenger_wins = sum(1 for r in self.results if r["winner"] == "CHALLENGER")
         defender_wins = sum(1 for r in self.results if r["winner"] == "DEFENDER")
         draws = sum(1 for r in self.results if r["winner"] == "DRAW")
-        
+
         return {
             "challenger_win_rate": challenger_wins / len(self.results),
             "defender_win_rate": defender_wins / len(self.results),
             "draw_rate": draws / len(self.results),
             "average_game_length": sum(r["total_turns"] for r in self.results) / len(self.results),
-            "health_differential": sum(abs(r["final_health"]["challenger"] - 
-                                         r["final_health"]["defender"]) 
+            "health_differential": sum(abs(r["final_health"]["challenger"] -
+                                         r["final_health"]["defender"])
                                       for r in self.results) / len(self.results)
         }
-    
+
     def _analyze_engagement(self) -> Dict[str, Any]:
         """Analyze player engagement metrics"""
-        
+
         return {
             "average_tension": sum(r["average_tension"] for r in self.results) / len(self.results),
-            "average_choice_difficulty": sum(r["average_choice_difficulty"] 
+            "average_choice_difficulty": sum(r["average_choice_difficulty"]
                                            for r in self.results) / len(self.results),
             "average_enjoyment": sum(r["average_enjoyment"] for r in self.results) / len(self.results),
             "high_tension_games": sum(1 for r in self.results if r["average_tension"] > 0.7) / len(self.results),
             "high_enjoyment_games": sum(1 for r in self.results if r["average_enjoyment"] > 0.7) / len(self.results)
         }
-    
+
     def _analyze_matchups(self) -> Dict[str, Dict[str, float]]:
         """Analyze personality matchup results"""
-        
+
         matchup_data = {}
-        
+
         for result in self.results:
             matchup_key = f"{result['personas']['challenger']}_vs_{result['personas']['defender']}"
-            
+
             if matchup_key not in matchup_data:
                 matchup_data[matchup_key] = {
                     "games": 0,
@@ -1215,50 +846,51 @@ class SimulationOrchestrator:
                     "total_enjoyment": 0,
                     "total_tension": 0
                 }
-            
+
             matchup_data[matchup_key]["games"] += 1
             if result["winner"] == "CHALLENGER":
                 matchup_data[matchup_key]["challenger_wins"] += 1
             matchup_data[matchup_key]["total_enjoyment"] += result["average_enjoyment"]
             matchup_data[matchup_key]["total_tension"] += result["average_tension"]
-        
+
         # Calculate averages
         for matchup in matchup_data.values():
             if matchup["games"] > 0:
                 matchup["win_rate"] = matchup["challenger_wins"] / matchup["games"]
                 matchup["avg_enjoyment"] = matchup["total_enjoyment"] / matchup["games"]
                 matchup["avg_tension"] = matchup["total_tension"] / matchup["games"]
-        
+
         return matchup_data
-    
+
     def _generate_recommendations(self, balance: Dict, engagement: Dict) -> List[str]:
         """Generate recommendations for game improvement"""
-        
+
         recommendations = []
-        
+
         # Balance recommendations
         if abs(balance["challenger_win_rate"] - 0.5) > 0.15:
             if balance["challenger_win_rate"] > 0.5:
                 recommendations.append("Consider buffing Defender's starting resources")
             else:
                 recommendations.append("Consider buffing Challenger's starting momentum")
-        
+
         # Engagement recommendations
         if engagement["average_tension"] < 0.5:
             recommendations.append("Games may be too predictable - consider adding more swing mechanics")
-        
+
         if engagement["average_enjoyment"] < 0.6:
             recommendations.append("Player enjoyment is low - consider adding more meaningful choices")
-        
+
         if engagement["average_choice_difficulty"] < 0.3:
             recommendations.append("Choices may be too obvious - consider balancing option values")
-        
+
         if balance["average_game_length"] < 3:
             recommendations.append("Games ending too quickly - consider increasing starting health")
         elif balance["average_game_length"] > 7:
             recommendations.append("Games may be dragging - consider increasing damage potential")
-        
+
         return recommendations if recommendations else ["Game appears well-balanced!"]
+
 
 # ==================== MAIN EXECUTION ====================
 
@@ -1275,7 +907,7 @@ async def main():
     print("BUSHIDO CARD GAME - AUTOMATED PLAYTESTING SYSTEM")
     print("Using human-like reasoning agents" if vertex_initialized else "Using deterministic AI")
     print("=" * 60)
-    
+
     # Get number of simulations from user
     try:
         num_sims = int(input("\nHow many game simulations would you like to run? "))
@@ -1288,17 +920,17 @@ async def main():
 
     print(f"\nRunning {num_sims} simulations with diverse player personalities...")
     print("This will generate human-like gameplay with emotional responses.\n")
-    
+
     # Create orchestrator
     orchestrator = SimulationOrchestrator()
-    
+
     # Run simulations
     results = await orchestrator.run_simulations(num_sims)
-    
+
     # Generate evaluation report
     print("\nGenerating evaluation report...")
     report = await orchestrator.generate_evaluation_report()
-    
+
     # Save results
     try:
         output_dir = Path("./simulation_results")
@@ -1320,7 +952,7 @@ async def main():
     except Exception as e:
         logger.error(f"Error saving results: {e}")
         print(f"\nWARNING: Could not save results to file: {e}")
-    
+
     # Print summary
     print("\n" + "=" * 60)
     print("SIMULATION COMPLETE")
@@ -1329,15 +961,16 @@ async def main():
     print(f"  Challenger Win Rate: {report['balance_metrics']['challenger_win_rate']:.1%}")
     print(f"  Defender Win Rate: {report['balance_metrics']['defender_win_rate']:.1%}")
     print(f"  Average Game Length: {report['balance_metrics']['average_game_length']:.1f} turns")
-    
+
     print(f"\nEngagement Metrics:")
     print(f"  Average Tension: {report['engagement_metrics']['average_tension']:.2f}")
     print(f"  Average Enjoyment: {report['engagement_metrics']['average_enjoyment']:.2f}")
     print(f"  High Tension Games: {report['engagement_metrics']['high_tension_games']:.1%}")
-    
+
     print(f"\nRecommendations:")
     for rec in report['recommendations']:
         print(f"  • {rec}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
