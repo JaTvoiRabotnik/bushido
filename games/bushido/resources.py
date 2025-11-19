@@ -4,8 +4,8 @@ Handles health, momentum, and balance operations
 """
 
 from typing import Tuple
-from models import PlayerState, ActionCard
-from constants import MAX_MOMENTUM, MAX_BALANCE
+from .models import PlayerState, ActionCard
+from .constants import MAX_MOMENTUM, MAX_BALANCE
 
 
 class PlayerResourceManager:

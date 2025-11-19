@@ -191,3 +191,179 @@ REASONING: I will aggressively advance and unleash Kuzushi, aiming for a decisiv
 2025-11-18 15:02:05,119 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 5, 'challenger_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': 'Kuzushi', 'defender_technique': None, 'position_before': 'Close Combat', 'damage_dealt': {'challenger': 0, 'defender': 2}, 'position_after': 'Close Combat', 'new_position': <Position.CLOSE: 'Close Combat'>}
 2025-11-18 15:02:05,119 - __main__ - INFO - Simulation 0 completed: CHALLENGER wins!
 2025-11-18 15:02:05,122 - __main__ - INFO - Completed 1/1 simulations
+2025-11-19 00:01:36,509 - framework.runner - INFO - Vertex AI initialized: project=bushido-478510, location=us-central1
+2025-11-19 00:02:42,409 - framework.runner - INFO - Vertex AI initialized: project=bushido-478510, location=us-central1
+2025-11-19 00:02:43,975 - framework.orchestration - INFO - Starting 1 simulations
+2025-11-19 00:02:43,976 - framework.orchestration - INFO - Simulation 0: Player_0_A vs Player_0_B
+2025-11-19 00:02:43,976 - framework.agents - INFO - [INIT] Creating agent for Player_0_A (Player 0)
+2025-11-19 00:02:43,976 - framework.agents - INFO - [INIT] Session ID: game_2a7431f6-a979-4507-b276-a7c71d570594_player0
+2025-11-19 00:02:43,977 - framework.agents - INFO - [INIT] User ID: player_Player_0_A
+2025-11-19 00:03:18,406 - framework.runner - INFO - Vertex AI initialized: project=bushido-478510, location=us-central1
+2025-11-19 00:03:29,437 - framework.orchestration - INFO - Starting 1 simulations
+2025-11-19 00:03:29,437 - framework.orchestration - INFO - Simulation 0: Player_0_A vs Player_0_B
+2025-11-19 00:03:29,438 - framework.agents - INFO - [INIT] Creating agent for Player_0_A (Player 0)
+2025-11-19 00:03:29,438 - framework.agents - INFO - [INIT] Session ID: game_38c2b202-8335-4820-8345-f9cd43d29139_player0
+2025-11-19 00:03:29,438 - framework.agents - INFO - [INIT] User ID: player_Player_0_A
+2025-11-19 00:03:29,438 - framework.agents - INFO - [INIT] Agent created with model: gemini-2.5-flash
+2025-11-19 00:03:29,439 - framework.agents - INFO - [INIT] InMemoryRunner created
+2025-11-19 00:03:29,439 - framework.agents - INFO - [INIT] Creating agent for Player_0_B (Player 1)
+2025-11-19 00:03:29,439 - framework.agents - INFO - [INIT] Session ID: game_38c2b202-8335-4820-8345-f9cd43d29139_player1
+2025-11-19 00:03:29,439 - framework.agents - INFO - [INIT] User ID: player_Player_0_B
+2025-11-19 00:03:29,440 - framework.agents - INFO - [INIT] Agent created with model: gemini-2.5-flash
+2025-11-19 00:03:29,442 - framework.agents - INFO - [INIT] InMemoryRunner created
+2025-11-19 00:03:29,442 - framework.agents - INFO - [INIT] Attempting to initialize session for game_38c2b202-8335-4820-8345-f9cd43d29139_player0
+2025-11-19 00:03:29,443 - framework.agents - INFO - [INIT] Session created successfully: game_38c2b202-8335-4820-8345-f9cd43d29139_player0
+2025-11-19 00:03:29,444 - framework.agents - INFO - [INIT] Attempting to initialize session for game_38c2b202-8335-4820-8345-f9cd43d29139_player1
+2025-11-19 00:03:29,444 - framework.agents - INFO - [INIT] Session created successfully: game_38c2b202-8335-4820-8345-f9cd43d29139_player1
+2025-11-19 00:03:29,445 - GameMaster_sim_0 - INFO - Game 38c2b202-8335-4820-8345-f9cd43d29139 initialized
+2025-11-19 00:03:29,446 - GameMaster_sim_0 - INFO - Starting turn 1
+2025-11-19 00:03:29,447 - framework.agents - INFO - [LLM] Requesting decision from Player_0_A (turn 1)
+2025-11-19 00:03:29,851 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:29,863 - framework.agents - INFO - [LLM] Requesting decision from Player_0_B (turn 1)
+2025-11-19 00:03:30,129 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:33,152 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:33,354 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:33,354 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:33,566 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:33,621 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:33,645 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:33,651 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:33,913 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:36,224 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:36,227 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:36,228 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:36,450 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:36,547 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:36,550 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:36,551 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:36,828 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:42,364 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:42,373 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:42,374 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:42,375 - framework.agents - INFO - [LLM] Player_0_A completed reasoning (252 chars, 5 events)
+2025-11-19 00:03:42,375 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Advance, Attack]
+TECHNIQUE: None
+REASONING: It's the first turn, and I need to establish dominance by closing the distance and immediately launching an aggressive strike. This aligns with my aggressive personality and sets an offensive pace.
+2025-11-19 00:03:42,377 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-19 00:03:42,377 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-19 00:03:42,377 - GameMaster_sim_0 - INFO -   Reasoning: It's the first turn, and I need to establish dominance by closing the distance and immediately launching an aggressive strike. This aligns with my aggressive personality and sets an offensive pace.
+2025-11-19 00:03:42,378 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:03:42,878 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:42,885 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:42,885 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:43,108 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:48,096 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:48,099 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:48,100 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:48,331 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:53,730 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:53,744 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:53,747 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:53,755 - framework.agents - INFO - [LLM] Player_0_B completed reasoning (266 chars, 9 events)
+2025-11-19 00:03:53,756 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
+TECHNIQUE: Nagashi
+REASONING: The opponent has early momentum, so a defensive posture with counter-potential is a smart adaptive move. This allows me to gain Balance, mitigate their potential aggression, and potentially gain momentum myself.
+2025-11-19 00:03:53,758 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-19 00:03:53,759 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-19 00:03:53,760 - GameMaster_sim_0 - INFO -   Reasoning: The opponent has early momentum, so a defensive posture with counter-potential is a smart adaptive move. This allows me to gain Balance, mitigate their potential aggression, and potentially gain momentum myself.
+2025-11-19 00:03:53,760 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:03:53,762 - GameMaster_sim_0 - INFO - Turn 1 Results:
+2025-11-19 00:03:53,763 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 1, 'challenger_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': None, 'defender_technique': 'Nagashi', 'position_before': 'Apart', 'damage_dealt': {'challenger': 0, 'defender': 1}, 'position_after': 'Sword Range', 'new_position': <Position.SWORD: 'Sword Range'>}
+2025-11-19 00:03:53,764 - GameMaster_sim_0 - INFO - Starting turn 2
+2025-11-19 00:03:53,766 - framework.agents - INFO - [LLM] Requesting decision from Player_0_A (turn 2)
+2025-11-19 00:03:54,025 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:54,037 - framework.agents - INFO - [LLM] Requesting decision from Player_0_B (turn 2)
+2025-11-19 00:03:54,409 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:56,951 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:56,953 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:56,954 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:57,244 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:03:57,824 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:03:57,828 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:03:57,829 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:03:58,593 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:01,165 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:01,171 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:01,171 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:01,414 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:02,667 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:02,672 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:02,673 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:02,972 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:06,353 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:06,357 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:06,357 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:06,359 - framework.agents - INFO - [LLM] Player_0_A completed reasoning (209 chars, 5 events)
+2025-11-19 00:04:06,359 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Stay, Attack]
+TECHNIQUE: None
+REASONING: I successfully wounded my opponent and am now at Sword Range. I must press my advantage and continue the offensive to maintain pressure and deal more damage.
+2025-11-19 00:04:06,360 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-19 00:04:06,360 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-19 00:04:06,360 - GameMaster_sim_0 - INFO -   Reasoning: I successfully wounded my opponent and am now at Sword Range. I must press my advantage and continue the offensive to maintain pressure and deal more damage.
+2025-11-19 00:04:06,361 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:04:10,625 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:10,631 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:10,631 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:10,633 - framework.agents - INFO - [LLM] Player_0_B completed reasoning (268 chars, 5 events)
+2025-11-19 00:04:10,634 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Stay, Defend]
+TECHNIQUE: Mizu no Kokoro
+REASONING: The opponent is aggressive and has high momentum; I need strong defense. By Staying, I gain Balance, and Mizu no Kokoro will provide a significant defense (+3) to counter their attack and protect my health.
+2025-11-19 00:04:10,635 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-19 00:04:10,635 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.DEFEND: 'Defend'>,)
+2025-11-19 00:04:10,635 - GameMaster_sim_0 - INFO -   Reasoning: The opponent is aggressive and has high momentum; I need strong defense. By Staying, I gain Balance, and Mizu no Kokoro will provide a significant defense (+3) to counter their attack and protect my health.
+2025-11-19 00:04:10,635 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:04:10,636 - GameMaster_sim_0 - INFO - Turn 2 Results:
+2025-11-19 00:04:10,636 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 2, 'challenger_actions': (<ActionCard.ATTACK: 'Attack'>,), 'defender_actions': (<ActionCard.DEFEND: 'Defend'>,), 'challenger_technique': None, 'defender_technique': 'Mizu no Kokoro', 'position_before': 'Sword Range', 'damage_dealt': {'challenger': 0, 'defender': 0}, 'position_after': 'Sword Range', 'new_position': <Position.SWORD: 'Sword Range'>}
+2025-11-19 00:04:10,636 - GameMaster_sim_0 - INFO - Starting turn 3
+2025-11-19 00:04:10,638 - framework.agents - INFO - [LLM] Requesting decision from Player_0_A (turn 3)
+2025-11-19 00:04:11,048 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:11,089 - framework.agents - INFO - [LLM] Requesting decision from Player_0_B (turn 3)
+2025-11-19 00:04:11,593 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:14,007 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:14,010 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:14,012 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:14,194 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:14,619 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:14,623 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:14,630 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:15,042 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:18,329 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:18,332 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:18,333 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:18,536 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:21,582 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:21,584 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:21,584 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['function_call', 'thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:21,862 - google_adk.google.adk.models.google_llm - INFO - Sending out request, model: gemini-2.5-flash, backend: GoogleLLMVariant.VERTEX_AI, stream: False
+2025-11-19 00:04:26,589 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:26,594 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:26,595 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:26,597 - framework.agents - INFO - [LLM] Player_0_A completed reasoning (271 chars, 5 events)
+2025-11-19 00:04:26,597 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Advance, Attack]
+TECHNIQUE: None
+REASONING: My opponent is consistently defending with max Balance, which is frustrating. I need to change the engagement and force a new situation by advancing and attacking to break their defensive pattern and regain momentum.
+2025-11-19 00:04:26,598 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-19 00:04:26,598 - GameMaster_sim_0 - INFO - Player 0 decision: (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>)
+2025-11-19 00:04:26,598 - GameMaster_sim_0 - INFO -   Reasoning: My opponent is consistently defending with max Balance, which is frustrating. I need to change the engagement and force a new situation by advancing and attacking to break their defensive pattern and regain momentum.
+2025-11-19 00:04:26,599 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:04:26,668 - httpx - INFO - HTTP Request: POST https://europe-west2-aiplatform.googleapis.com/v1beta1/projects/bushido-478510/locations/europe-west2/publishers/google/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-11-19 00:04:26,672 - google_adk.google.adk.models.google_llm - INFO - Response received from the model.
+2025-11-19 00:04:26,672 - google_genai.types - WARNING - Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
+2025-11-19 00:04:26,675 - framework.agents - INFO - [LLM] Player_0_B completed reasoning (289 chars, 5 events)
+2025-11-19 00:04:26,675 - framework.agents - INFO - [LLM] Full response:
+DECISION: [Stay, Attack]
+TECHNIQUE: Mizu no Kokoro
+REASONING: I successfully defended their aggression and now have max Balance at Sword Range. This is the perfect opportunity to use Mizu no Kokoro's special ability to bypass evasion, turning the tide from defense to a calculated offense.
+2025-11-19 00:04:26,676 - framework.agents - INFO - [LLM] Parsed decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-19 00:04:26,676 - GameMaster_sim_0 - INFO - Player 1 decision: (<ActionCard.ATTACK: 'Attack'>,)
+2025-11-19 00:04:26,677 - GameMaster_sim_0 - INFO -   Reasoning: I successfully defended their aggression and now have max Balance at Sword Range. This is the perfect opportunity to use Mizu no Kokoro's special ability to bypass evasion, turning the tide from defense to a calculated offense.
+2025-11-19 00:04:26,677 - GameMaster_sim_0 - INFO -   Emotion: focused
+2025-11-19 00:04:26,678 - GameMaster_sim_0 - INFO - Turn 3 Results:
+2025-11-19 00:04:26,679 - GameMaster_sim_0 - INFO -   Turn result: {'turn': 3, 'challenger_actions': (<ActionCard.ADVANCE: 'Advance'>, <ActionCard.ATTACK: 'Attack'>), 'defender_actions': (<ActionCard.ATTACK: 'Attack'>,), 'challenger_technique': None, 'defender_technique': 'Mizu no Kokoro', 'position_before': 'Sword Range', 'damage_dealt': {'challenger': 3, 'defender': 4}, 'position_after': 'Close Combat', 'new_position': <Position.CLOSE: 'Close Combat'>}
+2025-11-19 00:04:26,680 - framework.orchestration - INFO - Simulation 0 completed: DRAW wins!
+2025-11-19 00:04:26,682 - framework.orchestration - INFO - Completed 1/1 simulations

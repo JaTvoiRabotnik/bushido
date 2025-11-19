@@ -4,7 +4,7 @@ Handles tension, enjoyment, and emotional state calculations
 """
 
 from typing import Tuple, Dict
-from models import PlayerState, GameState, ActionCard, PersonalityTrait
+from .models import PlayerState, GameState, ActionCard, PersonalityTrait
 
 
 class MetricsTracker:

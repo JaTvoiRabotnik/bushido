@@ -1,28 +1,24 @@
 # Bushido Card Game Testing Agent System
 
 An advanced multi-agent system for automated playtesting of card games, featuring human-like reasoning and emotional simulation. Built with Google ADK (Agent Development Kit) and designed for deployment on Google Vertex AI.
+## 📚 Architecture
 
-## 📚 Architecture Overview
+The system is built on a modular architecture separating the agent framework from game logic:
 
-Based on patterns from "Agentic Design Patterns" book, this system implements:
+### 1. Framework Layer (`framework/`)
+- **Agents**: Generic `PlaytestPlayerAgent` and `GameMasterAgent`
+- **Orchestration**: `SimulationOrchestrator` for managing batches
+- **Interface**: `GameInterface` abstract base class
+- **Adapter**: `GameAgentAdapter` for decoupling game logic from agents
 
-### Core Design Patterns Used
+### 2. Game Layer (`games/bushido/`)
+- **Game Logic**: `BushidoGame` implementation
+- **Rules Engine**: `GameRulesEngine` with stateless logic
+- **Models**: Pydantic models for structured data
+- **Tools**: Stateless tool definitions for agents
 
-1. **Parallelization** (Chapter 3, page 32)
-   - Multiple game simulations run concurrently
-   - Batch processing for resource optimization
-
-2. **Reasoning Techniques** (Chapter 17, pages 241-261)
-   - Chain-of-thought reasoning for player decisions
-   - Tree-of-thoughts evaluation for move selection
-
-3. **Prioritization** (Chapter 20, page 310)
-   - Strategic choice evaluation based on personality
-   - Risk/reward assessment with emotional factors
-
-4. **Resource-Aware Optimization** (Chapter 16, page 225)
-   - Batched simulations to manage API calls
-   - Configurable parallelization limits
+### 3. Configuration (`config/`)
+- Centralized settings for agents and simulation parameters
 
 ## 🎮 System Components
 
@@ -102,7 +98,7 @@ export GOOGLE_CLOUD_LOCATION="us-central1"  # Optional
 
 4. **Run locally**
 ```bash
-python playtest_agent.py
+python main.py
 ```
 
 ### Production Deployment (Vertex AI)
