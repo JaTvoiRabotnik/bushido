@@ -205,7 +205,7 @@ We welcome contributions! Key areas for improvement:
 
 ## 📄 License
 
-[Your License Here]
+MIT License
 
 ## 🙏 Acknowledgments
 
@@ -217,8 +217,7 @@ We welcome contributions! Key areas for improvement:
 
 For issues or questions:
 - Open an issue on GitHub
-- Check documentation at `/docs`
-- Contact: [your-email]
+- Contact: marco@wayji.com
 
 ---
 
